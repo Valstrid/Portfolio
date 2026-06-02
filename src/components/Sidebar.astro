@@ -82,7 +82,7 @@ const navLinks = [
     <!-- Switch zone: clients panel ↔ nav panel -->
     <div class="sidebar-switch" id="sidebar-switch">
 
-      <!-- Panel A: Client list (visible while hero is in view) -->
+      <!-- Panel A: Client list (visible until work section is fully passed) -->
       <div class="sidebar-clients" id="sidebar-clients-panel" aria-label="Select clients">
         <span class="panel-label">Select clients</span>
         <div class="clients-list">
@@ -108,7 +108,7 @@ const navLinks = [
         </div>
       </div>
 
-      <!-- Panel B: Section navigation (visible after scrolling past hero) -->
+      <!-- Panel B: Section navigation (visible after scrolling past work section) -->
       <nav class="sidebar-nav-panel" id="sidebar-nav-panel" aria-label="Page sections">
         <span class="panel-label">Navigation</span>
         <div class="nav-links">
@@ -483,18 +483,19 @@ const navLinks = [
 </style>
 
 <script>
-  // ---- Hero observer: toggle nav-mode on sidebar ----
+  // ---- Work observer: toggle nav-mode on sidebar after section is fully passed ----
   const sidebar  = document.getElementById('sidebar')!;
-  const heroSection = document.getElementById('hero');
+  const workSection = document.getElementById('work');
 
-  if (heroSection) {
-    const heroObs = new IntersectionObserver(
+  if (workSection) {
+    const workObs = new IntersectionObserver(
       ([entry]) => {
-        sidebar.classList.toggle('nav-mode', !entry.isIntersecting);
+        const hasPassedWork = !entry.isIntersecting && entry.boundingClientRect.bottom <= 0;
+        sidebar.classList.toggle('nav-mode', hasPassedWork);
       },
       { threshold: 0.05 }
     );
-    heroObs.observe(heroSection);
+    workObs.observe(workSection);
   }
 
   // ---- Section observer: highlight active nav link ----

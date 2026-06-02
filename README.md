@@ -26,7 +26,7 @@ A dark-mode portfolio site for **Valstrid**, a web & brand designer. Built with 
 
 The site is a single-page portfolio with a **split layout**:
 
-- **Left sidebar** — Fixed panel, 288px wide. Shows a client list with hover-reveal testimonials while the hero section is visible; switches to section navigation links once the user scrolls past the hero.
+- **Left sidebar** — Fixed panel, 288px wide. Shows a client list with hover-reveal testimonials through the Hero and Case Studies sections; switches to section navigation links once the user finishes scrolling past Case Studies.
 - **Right main content** — Full scrollable area with six sections stacked vertically: Hero, Case Studies, Services, Testimonials, FAQ + Process, and Contact/Footer.
 
 The design is dark-mode only, using a lime-green accent (`#c9f31d`) and serif/sans font pairing.
@@ -129,17 +129,17 @@ The most complex component. Two-panel system inside a fixed left column.
 - Tagline text
 - `Book a call` CTA button (bottom)
 
-**Panel A — Client list** (visible when hero section is in viewport):
+**Panel A — Client list** (visible until the Case Studies section has fully scrolled past):
 - 8 clients listed by company name
 - Hovering (or focusing) a client reveals their testimonial quote + author via CSS `:hover` / `:focus-within` using `max-height` transition — no JS click required
 - The arrow icon fades in on hover
 
-**Panel B — Section navigation** (visible when scrolled past hero):
+**Panel B — Section navigation** (visible when scrolled past Case Studies):
 - Links: Latest projects / Services / Testimonials / FAQ / Contact
 - Each link has a short horizontal line that extends and turns accent-green when active
 - Active link is tracked via a second IntersectionObserver watching all section IDs
 
-**Panel switching:** Both panels use `position: absolute; inset: 0` inside `.sidebar-switch { position: relative; flex: 1; overflow: hidden }`. Controlled via `.sidebar.nav-mode` class toggled by an IntersectionObserver on `#hero`.
+**Panel switching:** Both panels use `position: absolute; inset: 0` inside `.sidebar-switch { position: relative; flex: 1; overflow: hidden }`. Controlled via `.sidebar.nav-mode` class toggled by an IntersectionObserver on `#work`.
 
 ### `Hero.astro`
 Compact section at the top of the main content. Contains:
@@ -238,11 +238,11 @@ background-size: 28px 28px;
 The sidebar has two states controlled by a CSS class on `<aside id="sidebar">`:
 
 ```
-Default (no class)   → shows client list    (hero is in viewport)
-.nav-mode            → shows section nav    (hero has scrolled out)
+Default (no class)   → shows client list    (Hero/Case Studies are in view)
+.nav-mode            → shows section nav    (Case Studies has scrolled out above viewport)
 ```
 
-**Trigger:** `IntersectionObserver` on `#hero` with `threshold: 0.05`. Fires when the hero section enters or exits the viewport.
+**Trigger:** `IntersectionObserver` on `#work` with `threshold: 0.05`. The sidebar switches to navigation only when the Case Studies section is no longer intersecting and its bottom edge has passed above the viewport.
 
 **Panel transition:** CSS `opacity` + `transform: translateY` with `0.38s` duration. The hidden panel has `pointer-events: none` to prevent interaction.
 
