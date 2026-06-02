@@ -1,0 +1,233 @@
+---
+const socials = [
+  { label: 'Twitter / X', href: 'https://twitter.com/' },
+  { label: 'LinkedIn', href: 'https://linkedin.com/' },
+  { label: 'Dribbble', href: 'https://dribbble.com/' },
+  { label: 'GitHub', href: 'https://github.com/' },
+];
+
+const links = [
+  { label: 'Work', href: '#work' },
+  { label: 'Services', href: '#services' },
+  { label: 'About', href: '#about' },
+  { label: 'FAQ', href: '#faq' },
+];
+---
+
+<!-- Contact / CTA Section -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-inner reveal">
+      <div class="contact-left">
+        <p class="section-label">Let's talk</p>
+        <h2 class="display contact-headline">
+          Have a project<br />
+          in mind?
+        </h2>
+        <a href="mailto:hello@valstrid.com" class="contact-email link-underline">
+          hello@valstrid.com
+        </a>
+      </div>
+      <div class="contact-right reveal reveal-delay-2">
+        <p class="contact-desc body-lg">
+          I'm open to new projects, collaborations, and conversations.
+          If you have something in mind — even just an early idea — reach out.
+          I typically respond within 24 hours.
+        </p>
+        <a href="mailto:hello@valstrid.com" class="btn btn-primary contact-btn">
+          Send a message
+          <svg class="arrow-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-inner">
+
+    <!-- Top row -->
+    <div class="footer-top">
+      <a href="/" class="footer-logo" aria-label="Valstrid home">
+        <span class="footer-logo-text">Valstrid</span>
+        <span class="footer-logo-dot"></span>
+      </a>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        {links.map(link => (
+          <a href={link.href} class="footer-link link-underline">{link.label}</a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Bottom row -->
+    <div class="footer-bottom">
+      <p class="footer-copy">
+        © {new Date().getFullYear()} Valstrid. All rights reserved.
+      </p>
+      <div class="footer-socials">
+        {socials.map(s => (
+          <a href={s.href} class="footer-social link-underline" target="_blank" rel="noopener noreferrer">
+            {s.label}
+          </a>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  /* ---- Contact Section ---- */
+  .contact {
+    padding-block: var(--section-py);
+    border-top: 1px solid var(--border);
+    background: var(--bg-2);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-headline {
+    font-size: clamp(40px, 6vw, 72px);
+  }
+
+  .contact-email {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2vw, 26px);
+    color: var(--text-2);
+    letter-spacing: -0.01em;
+    transition: color 0.2s;
+  }
+
+  .contact-email:hover { color: var(--text); }
+
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .contact-desc {
+    line-height: 1.7;
+  }
+
+  .contact-btn {
+    padding: 16px 32px;
+    font-size: 15px;
+    align-self: flex-start;
+  }
+
+  /* ---- Footer ---- */
+  .footer {
+    padding-block: 40px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+
+  .footer-logo-text {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    color: var(--text-2);
+    transition: color 0.2s;
+  }
+
+  .footer-logo:hover .footer-logo-text { color: var(--text); }
+
+  .footer-logo-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  .footer-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    font-size: 14px;
+    color: var(--text-2);
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover { color: var(--text); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-copy {
+    font-size: 13px;
+    color: var(--text-3);
+  }
+
+  .footer-socials {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-social {
+    font-size: 13px;
+    color: var(--text-3);
+    transition: color 0.2s;
+  }
+
+  .footer-social:hover { color: var(--text-2); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .contact-inner {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

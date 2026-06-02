@@ -1,0 +1,244 @@
+---
+const testimonials = [
+  {
+    name: 'Sarah Chen',
+    title: 'Co-founder & CEO',
+    company: 'Build Club',
+    quote: "Working with Valstrid was exceptional. The site launched in under 4 weeks and we saw a 3× increase in signups within the first month. Real collaboration, not just delivery.",
+  },
+  {
+    name: 'Marcus Reid',
+    title: 'Managing Partner',
+    company: 'Arconic Capital',
+    quote: "Valstrid redesigned our investor portal from the ground up. The result is engaging, professional, and exactly positions us the way we wanted. LPs notice the difference immediately.",
+  },
+  {
+    name: 'Priya Nair',
+    title: 'Head of Product',
+    company: 'Preve Health',
+    quote: "I've worked with a lot of designers. Few combine strategic thinking with execution speed like Valstrid does. The brand feels like us — but the best version of us.",
+  },
+  {
+    name: 'James Okafor',
+    title: 'Founder',
+    company: 'Vale',
+    quote: "The pitch deck helped us close our seed round. Investors repeatedly commented on how clear and visual the narrative was. That's the Valstrid difference.",
+  },
+  {
+    name: 'Alice Bergmann',
+    title: 'CMO',
+    company: 'Foundry Labs',
+    quote: "We brought Valstrid in for a fast rebrand. Four weeks later we had a complete visual identity — logo, guidelines, website, and social kit. Incredibly responsive and creative.",
+  },
+  {
+    name: 'Tom Hayashi',
+    title: 'CTO',
+    company: 'Syncline AI',
+    quote: "The Framer build blew our engineers away. Custom animations, CMS, perfect performance scores. Couldn't tell it wasn't custom-coded until we showed them the source.",
+  },
+];
+---
+
+<section class="testimonials" id="testimonials">
+  <div class="container">
+
+    <div class="tst-header reveal">
+      <p class="section-label">Client love</p>
+      <h2 class="headline">What they say</h2>
+    </div>
+
+    <div class="tst-grid" id="tst-grid">
+      {testimonials.map((t, i) => (
+        <div
+          class={`tst-card card reveal reveal-delay-${(i % 3) + 1}${i >= 3 ? ' tst-hidden' : ''}`}
+          data-index={i}
+        >
+          <div class="tst-quote-mark" aria-hidden="true">"</div>
+          <p class="tst-quote">"{t.quote}"</p>
+          <div class="tst-author">
+            <div class="tst-avatar" aria-hidden="true">
+              {t.name.split(' ').map(n => n[0]).join('')}
+            </div>
+            <div class="tst-info">
+              <span class="tst-name">{t.name}</span>
+              <span class="tst-role">{t.title}, {t.company}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Load more -->
+    <div class="tst-load-more reveal">
+      <button class="btn btn-ghost tst-more-btn" id="tst-more-btn" aria-expanded="false">
+        Load more
+        <svg class="more-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .testimonials {
+    padding-block: var(--section-py);
+    border-top: 1px solid var(--border);
+  }
+
+  .tst-header {
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Grid */
+  .tst-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .tst-card {
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: relative;
+  }
+
+  .tst-hidden {
+    display: none;
+  }
+
+  .tst-card.showing {
+    display: flex;
+    animation: tst-show 0.5s var(--ease-out) forwards;
+  }
+
+  @keyframes tst-show {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Quote mark */
+  .tst-quote-mark {
+    font-family: var(--font-serif);
+    font-size: 56px;
+    line-height: 0.5;
+    color: var(--accent);
+    opacity: 0.6;
+    user-select: none;
+  }
+
+  .tst-quote {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-2);
+    flex: 1;
+  }
+
+  /* Author */
+  .tst-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .tst-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+    flex-shrink: 0;
+    letter-spacing: 0.01em;
+  }
+
+  .tst-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .tst-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .tst-role {
+    font-size: 12px;
+    color: var(--text-3);
+  }
+
+  /* Load more */
+  .tst-load-more {
+    display: flex;
+    justify-content: center;
+  }
+
+  .tst-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+  }
+
+  .more-chevron {
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .tst-more-btn[aria-expanded="true"] .more-chevron {
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 960px) {
+    .tst-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .tst-grid { grid-template-columns: 1fr; }
+    .tst-card { padding: 28px 24px; }
+  }
+</style>
+
+<script>
+  const moreBtn = document.getElementById('tst-more-btn') as HTMLButtonElement;
+  const hiddenCards = Array.from(document.querySelectorAll<HTMLElement>('.tst-card[data-index]')).filter(
+    (el) => parseInt(el.dataset.index ?? '0') >= 3
+  );
+  let expanded = false;
+
+  moreBtn?.addEventListener('click', () => {
+    expanded = !expanded;
+
+    hiddenCards.forEach((card) => {
+      if (expanded) {
+        card.style.display = 'flex';
+        card.classList.add('showing');
+      } else {
+        card.style.display = 'none';
+        card.classList.remove('showing');
+      }
+    });
+
+    moreBtn.setAttribute('aria-expanded', String(expanded));
+    const labelEl = moreBtn.childNodes[0] as Text;
+    if (labelEl) labelEl.textContent = expanded ? 'Show less' : 'Load more';
+  });
+
+  // Initially hide cards 3+
+  hiddenCards.forEach((card) => { card.style.display = 'none'; });
+</script>

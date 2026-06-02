@@ -1,0 +1,69 @@
+---
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Valstrid — Web & Brand Design',
+  description = 'Web and brand design for startups, B2B, and investment firms. Clean, conversion-focused digital experiences.',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#080808" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <!-- Preconnect for Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+
+    <!-- Page Loader -->
+    <div id="page-loader" aria-hidden="true">
+      <div class="loader-inner">
+        <div class="loader-wordmark">
+          <span>Valstrid</span>
+        </div>
+        <div class="loader-bar">
+          <div class="loader-bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <slot />
+
+    <script>
+      // Page Loader: dismiss after animation finishes
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          const loader = document.getElementById('page-loader');
+          if (loader) loader.classList.add('loaded');
+        }, 1500);
+      });
+
+      // Scroll-triggered reveal
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -32px 0px' }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

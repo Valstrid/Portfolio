@@ -1,0 +1,220 @@
+---
+const services = [
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>`,
+    title: 'Website Design & Build',
+    description: 'Pixel-perfect, responsive websites designed with intent and built for performance. From landing pages to multi-page marketing sites — live in as little as 2 weeks.',
+    deliverables: ['Strategy & wireframes', 'UI/UX design', 'Responsive development', 'CMS setup & handoff'],
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+    title: 'Brand & Visual Identity',
+    description: 'More than a logo — a complete visual language that communicates your values and differentiates you in a crowded market. Built to scale across every touchpoint.',
+    deliverables: ['Logo & mark design', 'Color & typography system', 'Brand guidelines', 'Asset library'],
+  },
+  {
+    icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+    title: 'Framer Development',
+    description: 'Advanced Framer builds with custom interactions, animations, and CMS. As a certified Framer PRO Expert, I take designs further than templates ever could.',
+    deliverables: ['Custom interactions', 'CMS integration', 'Performance tuning', 'Ongoing support'],
+  },
+];
+---
+
+<section class="services" id="services">
+  <div class="container">
+
+    <div class="svc-header reveal">
+      <p class="section-label">What I do</p>
+      <h2 class="headline svc-headline">Built for your goals,<br /> not a template</h2>
+    </div>
+
+    <div class="svc-grid">
+      {services.map((svc, i) => (
+        <div class={`svc-card card reveal reveal-delay-${i + 1}`}>
+          <div class="svc-icon" set:html={svc.icon}></div>
+          <div class="svc-body">
+            <h3 class="svc-title">{svc.title}</h3>
+            <p class="svc-desc body-sm">{svc.description}</p>
+            <ul class="svc-list">
+              {svc.deliverables.map(item => (
+                <li class="svc-list-item">
+                  <span class="svc-check" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                      <path d="M2 6l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="svc-cta reveal">
+      <p class="svc-cta-text body-lg">Ready to build something remarkable?</p>
+      <a href="#contact" class="btn btn-primary svc-cta-btn">
+        Start your project
+        <svg class="arrow-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .services {
+    padding-block: var(--section-py);
+    border-top: 1px solid var(--border);
+  }
+
+  .svc-header {
+    margin-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .svc-headline {
+    max-width: 520px;
+  }
+
+  /* Grid */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 80px;
+  }
+
+  .svc-card {
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .svc-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    opacity: 0;
+    transition: opacity 0.35s var(--ease-out);
+  }
+
+  .svc-card:hover::before { opacity: 1; }
+
+  /* Icon */
+  .svc-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--accent);
+    flex-shrink: 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .svc-card:hover .svc-icon {
+    background: rgba(201, 243, 29, 0.1);
+    border-color: rgba(201, 243, 29, 0.3);
+  }
+
+  /* Body */
+  .svc-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .svc-title {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .svc-desc {
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* Deliverables list */
+  .svc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .svc-list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-2);
+  }
+
+  .svc-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: rgba(201, 243, 29, 0.1);
+    border-radius: 50%;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .svc-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 48px;
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    flex-wrap: wrap;
+  }
+
+  .svc-cta-text {
+    color: var(--text);
+    max-width: 400px;
+  }
+
+  .svc-cta-btn {
+    padding: 16px 32px;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 960px) {
+    .svc-grid { grid-template-columns: 1fr; }
+    .svc-card { padding: 32px 28px; }
+  }
+
+  @media (max-width: 600px) {
+    .svc-cta { padding: 32px 24px; flex-direction: column; align-items: flex-start; }
+  }
+</style>

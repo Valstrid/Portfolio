@@ -1,0 +1,167 @@
+---
+const pillars = [
+  {
+    number: '01',
+    title: 'Make them stop.',
+    body: 'First impressions are everything. I design visuals that interrupt the scroll — brand identities and landing pages that demand attention the moment they load.',
+  },
+  {
+    number: '02',
+    title: 'Make them stay.',
+    body: 'Engagement is a craft. Every interaction, every micro-detail is designed to keep visitors moving forward — building trust with every pixel.',
+  },
+  {
+    number: '03',
+    title: 'Make them convert.',
+    body: 'Beautiful is easy. Beautiful and effective is rare. I combine visual storytelling with strategic layout to turn browsers into clients.',
+  },
+];
+---
+
+<section class="value-props" id="about">
+  <div class="container">
+
+    <div class="vp-header reveal">
+      <p class="section-label">Philosophy</p>
+      <h2 class="headline vp-headline">
+        Clarity is<br /> the strategy
+      </h2>
+    </div>
+
+    <div class="vp-grid">
+      {pillars.map((p, i) => (
+        <div class={`vp-card reveal reveal-delay-${i + 1}`}>
+          <span class="vp-number">{p.number}</span>
+          <div class="vp-content">
+            <h3 class="vp-title">{p.title}</h3>
+            <p class="body-sm vp-body">{p.body}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Full-width statement -->
+    <div class="vp-statement reveal">
+      <p class="vp-statement-text">
+        "Your brand sells when you sleep — only if it was built to."
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .value-props {
+    padding-block: var(--section-py);
+    border-top: 1px solid var(--border);
+  }
+
+  .vp-header {
+    margin-bottom: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .vp-headline {
+    max-width: 500px;
+  }
+
+  /* Grid */
+  .vp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 80px;
+  }
+
+  .vp-card {
+    background: var(--bg);
+    padding: 48px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    transition: background 0.3s var(--ease-out);
+    position: relative;
+  }
+
+  .vp-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .vp-card:hover {
+    background: var(--bg-2);
+  }
+
+  .vp-card:hover::after {
+    transform: scaleX(1);
+  }
+
+  .vp-number {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    color: var(--text-3);
+    letter-spacing: 0.05em;
+  }
+
+  .vp-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .vp-title {
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 2.5vw, 32px);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+
+  .vp-body {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-2);
+  }
+
+  /* Statement */
+  .vp-statement {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding-block: 48px;
+    text-align: center;
+  }
+
+  .vp-statement-text {
+    font-family: var(--font-serif);
+    font-size: clamp(24px, 4vw, 48px);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--text-2);
+    font-style: italic;
+    max-width: 800px;
+    margin-inline: auto;
+  }
+
+  @media (max-width: 900px) {
+    .vp-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    .vp-card { padding: 32px 24px; }
+  }
+</style>

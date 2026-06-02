@@ -1,0 +1,259 @@
+---
+const projects = [
+  {
+    index: '01',
+    title: 'Arconic Capital',
+    description: 'Full brand identity and investor-facing website for a London-based growth equity firm. Positioned them as the go-to fund for Series B tech companies.',
+    tags: ['Branding', 'Web Design', 'Framer Dev'],
+    year: '2024',
+    accent: '#c9f31d',
+    href: '#',
+  },
+  {
+    index: '02',
+    title: 'Build Club',
+    description: 'End-to-end web design and development for an AI-focused startup community. Launched in 4 weeks, drove 3× member signups in the first month.',
+    tags: ['Web Design', 'Product', 'Framer Dev'],
+    year: '2024',
+    accent: '#6e9fff',
+    href: '#',
+  },
+  {
+    index: '03',
+    title: 'Preve Health',
+    description: 'Brand and digital product design for a preventative health SaaS. Clean, clinical, and conversion-optimised across desktop and mobile.',
+    tags: ['Branding', 'Product', 'Web Design'],
+    year: '2023',
+    accent: '#ff8a65',
+    href: '#',
+  },
+  {
+    index: '04',
+    title: 'Vale',
+    description: 'Pitch deck and brand identity for a pre-seed fintech startup. Helped raise their seed round with a concise, visual-first narrative.',
+    tags: ['Branding', 'Pitch Deck'],
+    year: '2023',
+    accent: '#c084fc',
+    href: '#',
+  },
+];
+---
+
+<section class="case-studies" id="work">
+  <div class="container">
+
+    <div class="cs-header reveal">
+      <p class="section-label">Selected work</p>
+      <div class="cs-header-row">
+        <h2 class="headline">Case studies</h2>
+        <a href="#" class="btn btn-ghost cs-all-link">
+          All work
+          <svg class="arrow-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="cs-list">
+      {projects.map((project, i) => (
+        <a href={project.href} class={`cs-item reveal reveal-delay-${(i % 3) + 1}`} style={`--accent-c: ${project.accent}`}>
+          <div class="cs-index">{project.index}</div>
+          <div class="cs-main">
+            <div class="cs-top">
+              <h3 class="cs-title">{project.title}</h3>
+              <div class="cs-tags">
+                {project.tags.map(tag => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </div>
+            <p class="cs-desc">{project.description}</p>
+          </div>
+          <div class="cs-meta">
+            <span class="cs-year">{project.year}</span>
+            <span class="cs-arrow" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M4 16L16 4M16 4H7M16 4V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <div class="cs-bar" aria-hidden="true"></div>
+        </a>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .case-studies {
+    padding-block: var(--section-py);
+    border-top: 1px solid var(--border);
+  }
+
+  .cs-header {
+    margin-bottom: 48px;
+  }
+
+  .cs-header-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .cs-all-link {
+    padding: 10px 20px;
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  /* List */
+  .cs-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cs-item {
+    display: grid;
+    grid-template-columns: 60px 1fr auto;
+    align-items: center;
+    gap: 32px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    transition: background 0.3s var(--ease-out);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .cs-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  .cs-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bg-2);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out);
+    z-index: 0;
+    border-radius: var(--radius-sm);
+    margin-inline: -16px;
+  }
+
+  .cs-item:hover::before { opacity: 1; }
+
+  .cs-item > * { position: relative; z-index: 1; }
+
+  /* Bottom bar that slides in on hover */
+  .cs-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-c);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s var(--ease-out);
+  }
+
+  .cs-item:hover .cs-bar { transform: scaleX(1); }
+
+  /* Index */
+  .cs-index {
+    font-family: var(--font-serif);
+    font-size: 13px;
+    color: var(--text-3);
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  /* Main content */
+  .cs-main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .cs-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .cs-title {
+    font-family: var(--font-serif);
+    font-size: clamp(22px, 2.5vw, 30px);
+    letter-spacing: -0.02em;
+    color: var(--text);
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+
+  .cs-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .cs-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text-2);
+    max-width: 580px;
+  }
+
+  /* Meta */
+  .cs-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .cs-year {
+    font-size: 13px;
+    color: var(--text-3);
+    letter-spacing: 0.04em;
+  }
+
+  .cs-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    color: var(--text-2);
+    transition:
+      background 0.25s,
+      border-color 0.25s,
+      color 0.25s,
+      transform 0.35s var(--ease-spring);
+  }
+
+  .cs-item:hover .cs-arrow {
+    background: var(--accent-c);
+    border-color: var(--accent-c);
+    color: #000;
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 768px) {
+    .cs-item {
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+    }
+    .cs-index { display: none; }
+    .cs-header-row { flex-direction: column; align-items: flex-start; }
+  }
+</style>
