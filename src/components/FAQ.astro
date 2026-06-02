@@ -1,31 +1,58 @@
 ---
+const steps = [
+  {
+    num: '01',
+    title: 'Intro call',
+    sub: '15 min — Free',
+    desc: 'We talk through your goals, timeline, and budget. No commitment — just clarity on whether we\'re a good fit.',
+    rot: '-3deg',
+    ty: '8px',
+  },
+  {
+    num: '02',
+    title: 'Sprint planning',
+    sub: '1–2 days',
+    desc: 'We define scope, deliverables, and milestones. Fixed-price proposal and a clear schedule before anything starts.',
+    rot: '0.5deg',
+    ty: '0px',
+  },
+  {
+    num: '03',
+    title: 'Design, build & launch',
+    sub: '3–4 weeks',
+    desc: 'Heads-down execution with regular check-ins via Loom. You get a polished, production-ready result.',
+    rot: '2.5deg',
+    ty: '5px',
+  },
+];
+
 const categories = [
   {
     label: 'Work & process',
     items: [
       {
         q: 'How long does a project take?',
-        a: 'Most projects complete in 3–5 weeks from kickoff. A single landing page: 2 weeks. Full brand + site: 4–6 weeks. Complex multi-page builds: 6–8 weeks. I use clear milestones so you always know where we are.',
+        a: 'Most projects complete in 3–5 weeks from kickoff. A single landing page takes about 2 weeks; full brand + site is 4–6 weeks. I use clear milestones so you always know where we are.',
       },
       {
-        q: 'What information do you need from me to start?',
-        a: 'Goals, references you like (and dislike), any existing brand assets, and copy (or a clear outline of it). The more context upfront, the faster and sharper the work.',
+        q: 'What do you need from me to start?',
+        a: 'Goals, references you like and dislike, any existing brand assets, and copy (or a clear outline). The more context upfront, the faster and sharper the work.',
       },
       {
         q: 'Do you work with early-stage startups?',
-        a: 'Yes — many clients are pre-seed to Series A. I understand that direction can shift, so I scope projects to move quickly and adapt as needed.',
+        a: 'Yes — many clients are pre-seed to Series A. I understand direction can shift quickly, so I scope projects to move fast and adapt as needed.',
       },
       {
         q: 'Can I pay in instalments?',
-        a: '50% upfront, 50% on delivery. For larger engagements I can structure milestone-based payments. I always provide a fixed-price proposal — no surprise invoices.',
+        a: '50% upfront, 50% on delivery. For larger engagements I can structure milestone-based payments. All projects are fixed-price — no surprise invoices.',
       },
       {
         q: 'Do you offer ongoing retainers?',
         a: 'Yes. Many clients keep me on after launch for updates, new pages, and campaign assets. Retainers are scoped monthly with a rollover clause.',
       },
       {
-        q: 'Can you work with an existing brand or website?',
-        a: 'Absolutely — both greenfield and redesigns. If you have an existing brand, I work within or evolve it. If your site just needs a refresh, I can scope that too.',
+        q: 'Can you work with my existing brand?',
+        a: 'Absolutely — both greenfield and redesigns. If you have an existing brand I work within or evolve it. If your site just needs a refresh, I can scope that specifically.',
       },
     ],
   },
@@ -34,81 +61,211 @@ const categories = [
     items: [
       {
         q: 'Do you only build in Framer?',
-        a: 'Mostly Framer, but also Webflow and custom code on request. For most marketing sites, Framer gives the best balance of design fidelity, speed, and editability.',
+        a: 'Mostly Framer, but also Webflow and custom code on request. For most marketing sites, Framer gives the best balance of design fidelity, editability, and speed.',
       },
       {
         q: 'Can I edit the site myself after launch?',
-        a: 'Yes — Framer CMS lets you edit all text, images, and blog content without code. I include a handoff session so you\'re confident using it independently.',
+        a: 'Yes — Framer CMS lets you update all text and images without code. I include a handoff session so you\'re confident using it on your own.',
       },
       {
         q: 'Will the site look good on mobile?',
-        a: 'All builds are fully responsive, tested on real devices across Chrome, Safari, and Firefox. Mobile is always a first-class concern, not an afterthought.',
+        a: 'All builds are fully responsive, tested across Chrome, Safari, and Firefox on real devices. Mobile is always a first-class concern, not an afterthought.',
       },
       {
-        q: 'Do you design the copy too?',
-        a: 'I can write structural copy (headlines, value props, CTAs) and provide messaging guidance. For long-form content I collaborate with copywriters and can make introductions.',
+        q: 'Do you write copy too?',
+        a: 'I write structural copy — headlines, value props, CTAs — and provide messaging guidance. For long-form I can collaborate with copywriters and make introductions.',
       },
       {
-        q: 'What\'s your revision policy?',
+        q: "What's your revision policy?",
         a: 'Two full revision rounds are included. Additional rounds are billed at day rate. In practice, most projects land within the included rounds because I ask the right questions upfront.',
       },
       {
         q: 'What happens after launch?',
-        a: 'You get all files, Framer access, and any brand assets. I provide a short Loom walkthrough of the CMS. After that, I\'m available for ongoing work or individual requests.',
+        a: 'You get all project files, Framer access, and brand assets. I provide a Loom walkthrough of the CMS. After that, I\'m available for retainer or individual requests.',
       },
     ],
   },
 ];
 ---
 
-<section class="faq" id="faq">
+<section class="faq-section" id="faq">
 
-  <div class="faq-header reveal">
-    <span class="section-label">FAQ</span>
-    <h2 class="headline faq-headline">Frequently asked</h2>
+  <!-- Process steps -->
+  <div class="process-part">
+    <div class="process-header reveal">
+      <span class="section-label">How it works</span>
+      <h2 class="headline process-headline">Simple, clear process</h2>
+    </div>
+
+    <div class="process-cards" aria-label="3-step process">
+      {steps.map((step, i) => (
+        <div
+          class={`process-card card reveal reveal-delay-${i + 1}`}
+          style={`--rot: ${step.rot}; --ty: ${step.ty};`}
+        >
+          <div class="process-num">{step.num}</div>
+          <h3 class="process-title">{step.title}</h3>
+          <span class="process-sub">{step.sub}</span>
+          <p class="process-desc">{step.desc}</p>
+        </div>
+      ))}
+    </div>
   </div>
 
-  <div class="faq-cols">
-    {categories.map((cat, ci) => (
-      <div class="faq-col">
-        <h3 class="faq-cat-label">{cat.label}</h3>
-        <div class="faq-list">
-          {cat.items.map((item, i) => (
-            <div class={`faq-item reveal reveal-delay-${(i % 3) + 1}`}>
-              <button
-                class="faq-trigger"
-                aria-expanded="false"
-                aria-controls={`faq-${ci}-${i}`}
-              >
-                <span class="faq-q">{item.q}</span>
-                <span class="faq-icon" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path class="icon-h" d="M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <path class="icon-v" d="M7 3v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                  </svg>
-                </span>
-              </button>
-              <div
-                class="faq-answer"
-                id={`faq-${ci}-${i}`}
-                aria-hidden="true"
-              >
-                <p class="faq-a">{item.a}</p>
+  <!-- Section separator -->
+  <div class="faq-sep" aria-hidden="true"></div>
+
+  <!-- FAQ accordion -->
+  <div class="faq-part">
+    <div class="faq-header reveal">
+      <span class="section-label">FAQ</span>
+      <h2 class="headline faq-headline">Frequently asked</h2>
+    </div>
+
+    <div class="faq-cols">
+      {categories.map((cat, ci) => (
+        <div class="faq-col">
+          <h3 class="faq-cat">{cat.label}</h3>
+          <div class="faq-list">
+            {cat.items.map((item, i) => (
+              <div class={`faq-item reveal reveal-delay-${(i % 3) + 1}`}>
+                <button
+                  class="faq-trigger"
+                  aria-expanded="false"
+                  aria-controls={`faq-${ci}-${i}`}
+                >
+                  <span class="faq-q">{item.q}</span>
+                  <span class="faq-icon" aria-hidden="true">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <path class="icon-h" d="M3 7h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                      <path class="icon-v" d="M7 3v8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </button>
+                <div
+                  class="faq-answer"
+                  id={`faq-${ci}-${i}`}
+                  aria-hidden="true"
+                >
+                  <p class="faq-a">{item.a}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 
 </section>
 
 <style>
-  .faq {
+  .faq-section {
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ---- Process part ---- */
+  .process-part {
     padding-block: var(--section-py);
     padding-inline: var(--section-px);
-    border-bottom: 1px solid var(--border);
+  }
+
+  .process-header {
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .process-headline {
+    font-size: clamp(30px, 4vw, 48px);
+  }
+
+  /* Process cards */
+  .process-cards {
+    display: flex;
+    gap: 0;
+    position: relative;
+    padding-bottom: 8px;
+  }
+
+  .process-card {
+    flex: 1;
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transform: rotate(var(--rot)) translateY(var(--ty));
+    transition:
+      transform 0.4s var(--ease-spring),
+      border-color 0.3s var(--ease-out),
+      box-shadow 0.4s var(--ease-out);
+    min-height: 260px;
+    position: relative;
+  }
+
+  .process-cards .process-card:not(:first-child) {
+    margin-left: -10px;
+  }
+
+  .process-card:nth-child(1) { z-index: 1; }
+  .process-card:nth-child(2) { z-index: 2; }
+  .process-card:nth-child(3) { z-index: 1; }
+
+  .process-card:hover {
+    transform: rotate(0deg) translateY(-8px) !important;
+    border-color: var(--border-2);
+    box-shadow: 0 20px 56px rgba(0,0,0,0.5);
+    z-index: 10;
+  }
+
+  .process-num {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 38px;
+    letter-spacing: -0.04em;
+    color: var(--border-2);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .process-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .process-sub {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .process-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-2);
+    margin-top: 4px;
+  }
+
+  /* ---- Section separator ---- */
+  .faq-sep {
+    height: 1px;
+    background: var(--border);
+    margin-inline: var(--section-px);
+  }
+
+  /* ---- FAQ part ---- */
+  .faq-part {
+    padding-block: var(--section-py);
+    padding-inline: var(--section-px);
   }
 
   .faq-header {
@@ -122,7 +279,7 @@ const categories = [
     font-size: clamp(30px, 4vw, 48px);
   }
 
-  /* Two column layout */
+  /* Two-column accordion */
   .faq-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -130,18 +287,17 @@ const categories = [
     align-items: start;
   }
 
-  .faq-cat-label {
-    font-size: 12px;
+  .faq-cat {
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-3);
-    margin-bottom: 8px;
-    padding-bottom: 16px;
+    padding-bottom: 14px;
     border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
   }
 
-  /* Items */
   .faq-list {
     display: flex;
     flex-direction: column;
@@ -157,18 +313,18 @@ const categories = [
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 16px 0;
+    padding: 15px 0;
     text-align: left;
     cursor: pointer;
     background: transparent;
   }
 
   .faq-q {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--text-2);
     flex: 1;
-    line-height: 1.4;
+    line-height: 1.45;
     letter-spacing: -0.01em;
     transition: color 0.2s;
   }
@@ -182,16 +338,13 @@ const categories = [
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     border: 1px solid var(--border-2);
     border-radius: 50%;
     color: var(--text-3);
     flex-shrink: 0;
-    transition:
-      background 0.25s,
-      border-color 0.25s,
-      color 0.25s;
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
   }
 
   .faq-trigger[aria-expanded="true"] .faq-icon {
@@ -201,7 +354,8 @@ const categories = [
   }
 
   .icon-v {
-    transition: opacity 0.2s, transform 0.3s var(--ease-out);
+    transition: opacity 0.2s, transform 0.25s var(--ease-out);
+    transform-origin: center;
   }
 
   .faq-trigger[aria-expanded="true"] .icon-v {
@@ -209,7 +363,6 @@ const categories = [
     transform: scaleY(0);
   }
 
-  /* Answer */
   .faq-answer {
     overflow: hidden;
     max-height: 0;
@@ -217,20 +370,34 @@ const categories = [
   }
 
   .faq-answer[aria-hidden="false"] {
-    max-height: 220px;
+    max-height: 240px;
   }
 
   .faq-a {
-    padding-bottom: 18px;
+    padding-bottom: 16px;
     font-size: 13px;
     line-height: 1.75;
     color: var(--text-2);
   }
 
+  @media (max-width: 640px) {
+    .process-cards {
+      flex-direction: column;
+      gap: 12px;
+    }
+    .process-card {
+      transform: none !important;
+      min-height: auto;
+    }
+    .process-cards .process-card:not(:first-child) {
+      margin-left: 0;
+    }
+  }
+
   @media (max-width: 768px) {
     .faq-cols {
       grid-template-columns: 1fr;
-      gap: 40px;
+      gap: 36px;
     }
   }
 </style>
@@ -245,8 +412,7 @@ const categories = [
       // Close all
       document.querySelectorAll<HTMLButtonElement>('.faq-trigger').forEach((b) => {
         b.setAttribute('aria-expanded', 'false');
-        const a = document.getElementById(b.getAttribute('aria-controls')!);
-        a?.setAttribute('aria-hidden', 'true');
+        document.getElementById(b.getAttribute('aria-controls')!)?.setAttribute('aria-hidden', 'true');
       });
 
       if (!isOpen) {
