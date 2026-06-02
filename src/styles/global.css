@@ -136,11 +136,10 @@ body::before {
 @keyframes loader-progress { to { width: 100%; } }
 
 /* ---- Site layout ---- */
+/* Sidebar is position:fixed so offset main content by sidebar width */
 .site-grid {
-  display: grid;
-  grid-template-columns: var(--sidebar-w) 1fr;
+  margin-left: var(--sidebar-w);
   min-height: 100vh;
-  align-items: start;
   position: relative;
   z-index: 1;
 }
@@ -391,9 +390,10 @@ body::before {
 
 /* ---- Responsive: mobile breakpoint ---- */
 @media (max-width: 960px) {
+  /* On mobile, sidebar is a drawer — remove content offset */
   .site-grid {
-    grid-template-columns: 1fr;
-    padding-top: 56px; /* mobile header height */
+    margin-left: 0;
+    padding-top: 56px; /* offset for fixed mobile header */
   }
 
   .mobile-header { display: flex; }
