@@ -483,19 +483,29 @@ const navLinks = [
 </style>
 
 <script>
-  // ---- Work observer: toggle nav-mode on sidebar after section is fully passed ----
+  // ---- Work scroll trigger: toggle nav-mode after section is fully passed ----
   const sidebar  = document.getElementById('sidebar')!;
   const workSection = document.getElementById('work');
 
   if (workSection) {
-    const workObs = new IntersectionObserver(
-      ([entry]) => {
-        const hasPassedWork = !entry.isIntersecting && entry.boundingClientRect.bottom <= 0;
-        sidebar.classList.toggle('nav-mode', hasPassedWork);
-      },
-      { threshold: 0.05 }
-    );
-    workObs.observe(workSection);
+    let ticking = false;
+
+    const updateSidebarMode = () => {
+      const hasPassedWork = workSection.getBoundingClientRect().bottom <= 0;
+      sidebar.classList.toggle('nav-mode', hasPassedWork);
+      ticking = false;
+    };
+
+    const requestSidebarModeUpdate = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateSidebarMode);
+        ticking = true;
+      }
+    };
+
+    updateSidebarMode();
+    window.addEventListener('scroll', requestSidebarModeUpdate, { passive: true });
+    window.addEventListener('resize', requestSidebarModeUpdate);
   }
 
   // ---- Section observer: highlight active nav link ----

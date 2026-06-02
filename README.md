@@ -139,7 +139,7 @@ The most complex component. Two-panel system inside a fixed left column.
 - Each link has a short horizontal line that extends and turns accent-green when active
 - Active link is tracked via a second IntersectionObserver watching all section IDs
 
-**Panel switching:** Both panels use `position: absolute; inset: 0` inside `.sidebar-switch { position: relative; flex: 1; overflow: hidden }`. Controlled via `.sidebar.nav-mode` class toggled by an IntersectionObserver on `#work`.
+**Panel switching:** Both panels use `position: absolute; inset: 0` inside `.sidebar-switch { position: relative; flex: 1; overflow: hidden }`. Controlled via `.sidebar.nav-mode` class toggled by a scroll/resize check on `#work`.
 
 ### `Hero.astro`
 Compact section at the top of the main content. Contains:
@@ -242,7 +242,7 @@ Default (no class)   → shows client list    (Hero/Case Studies are in view)
 .nav-mode            → shows section nav    (Case Studies has scrolled out above viewport)
 ```
 
-**Trigger:** `IntersectionObserver` on `#work` with `threshold: 0.05`. The sidebar switches to navigation only when the Case Studies section is no longer intersecting and its bottom edge has passed above the viewport.
+**Trigger:** A scroll/resize listener checks `#work.getBoundingClientRect().bottom`. The sidebar switches to navigation only when the Case Studies section's bottom edge has passed above the viewport.
 
 **Panel transition:** CSS `opacity` + `transform: translateY` with `0.38s` duration. The hidden panel has `pointer-events: none` to prevent interaction.
 
