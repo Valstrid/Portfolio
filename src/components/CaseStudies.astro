@@ -1,99 +1,119 @@
 ---
 const projects = [
   {
-    index: '01',
     title: 'Arconic Capital',
-    description: 'Full brand identity and investor-facing website for a London-based growth equity firm. Positioned them as the go-to fund for Series B tech companies.',
-    tags: ['Branding', 'Web Design', 'Framer Dev'],
+    description: 'Full brand identity and investor portal for a London-based growth equity firm. Positioned them as the go-to fund for Series B tech companies.',
+    tags: ['Brand Identity', 'Web Design', 'Framer'],
     year: '2024',
-    accent: '#c9f31d',
+    thumb1: '#0d1628',
+    thumb2: '#1a2f50',
     href: '#',
   },
   {
-    index: '02',
     title: 'Build Club',
-    description: 'End-to-end web design and development for an AI-focused startup community. Launched in 4 weeks, drove 3× member signups in the first month.',
-    tags: ['Web Design', 'Product', 'Framer Dev'],
+    description: 'End-to-end web design and Framer build for Sydney\'s leading AI builder community. Launched in 4 weeks — 3× member signups in the first month.',
+    tags: ['Web Design', 'Framer', 'Brand'],
     year: '2024',
-    accent: '#6e9fff',
+    thumb1: '#14082a',
+    thumb2: '#281060',
     href: '#',
   },
   {
-    index: '03',
     title: 'Preve Health',
     description: 'Brand and digital product design for a preventative health SaaS. Clean, clinical, and conversion-optimised across desktop and mobile.',
-    tags: ['Branding', 'Product', 'Web Design'],
-    year: '2023',
-    accent: '#ff8a65',
+    tags: ['Brand Identity', 'Product Design', 'Web'],
+    year: '2024',
+    thumb1: '#041812',
+    thumb2: '#0c3024',
     href: '#',
   },
   {
-    index: '04',
     title: 'Vale',
-    description: 'Pitch deck and brand identity for a pre-seed fintech startup. Helped raise their seed round with a concise, visual-first narrative.',
-    tags: ['Branding', 'Pitch Deck'],
+    description: 'Pitch deck and brand identity for a pre-seed fintech startup. Visual-first narrative helped Vale close their seed round ahead of schedule.',
+    tags: ['Brand Identity', 'Pitch Deck'],
     year: '2023',
-    accent: '#c084fc',
+    thumb1: '#1a0f02',
+    thumb2: '#3d2408',
     href: '#',
   },
 ];
 ---
 
 <section class="case-studies" id="work">
-  <div class="container">
 
-    <div class="cs-header reveal">
-      <p class="section-label">Selected work</p>
-      <div class="cs-header-row">
-        <h2 class="headline">Case studies</h2>
-        <a href="#" class="btn btn-ghost cs-all-link">
-          All work
-          <svg class="arrow-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
+  <div class="cs-header reveal">
+    <span class="section-label">Selected work</span>
+    <div class="cs-header-row">
+      <h2 class="headline">Case studies</h2>
+      <a href="#" class="btn btn-ghost cs-all-btn">
+        All work
+        <svg class="arrow-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </div>
-
-    <div class="cs-list">
-      {projects.map((project, i) => (
-        <a href={project.href} class={`cs-item reveal reveal-delay-${(i % 3) + 1}`} style={`--accent-c: ${project.accent}`}>
-          <div class="cs-index">{project.index}</div>
-          <div class="cs-main">
-            <div class="cs-top">
-              <h3 class="cs-title">{project.title}</h3>
-              <div class="cs-tags">
-                {project.tags.map(tag => (
-                  <span class="tag">{tag}</span>
-                ))}
-              </div>
-            </div>
-            <p class="cs-desc">{project.description}</p>
-          </div>
-          <div class="cs-meta">
-            <span class="cs-year">{project.year}</span>
-            <span class="cs-arrow" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M4 16L16 4M16 4H7M16 4V13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-          </div>
-          <div class="cs-bar" aria-hidden="true"></div>
-        </a>
-      ))}
-    </div>
-
   </div>
+
+  <div class="cs-grid">
+    {projects.map((project, i) => (
+      <a
+        href={project.href}
+        class={`cs-card reveal reveal-delay-${(i % 2) + 1}`}
+        style={`--c1: ${project.thumb1}; --c2: ${project.thumb2};`}
+        aria-label={`View case study: ${project.title}`}
+      >
+        <!-- Thumbnail -->
+        <div class="cs-thumb">
+          <div class="cs-thumb-bg"></div>
+          <div class="cs-thumb-overlay">
+            <div class="cs-play" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M6 4l9 5-9 5V4z" fill="currentColor"/>
+              </svg>
+            </div>
+          </div>
+          <div class="cs-thumb-lines" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="cs-content">
+          <div class="cs-meta">
+            <div class="cs-tags">
+              {project.tags.map(tag => <span class="tag">{tag}</span>)}
+            </div>
+            <span class="cs-year">{project.year}</span>
+          </div>
+          <h3 class="cs-title">{project.title}</h3>
+          <p class="cs-desc">{project.description}</p>
+          <div class="cs-link">
+            View case study
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+              <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+
 </section>
 
 <style>
   .case-studies {
     padding-block: var(--section-py);
-    border-top: 1px solid var(--border);
+    padding-inline: var(--section-px);
+    border-bottom: 1px solid var(--border);
   }
 
   .cs-header {
-    margin-bottom: 48px;
+    margin-bottom: 40px;
+  }
+
+  .section-label {
+    display: block;
+    margin-bottom: 12px;
   }
 
   .cs-header-row {
@@ -103,157 +123,177 @@ const projects = [
     gap: 16px;
   }
 
-  .cs-all-link {
-    padding: 10px 20px;
-    font-size: 13px;
-    margin-bottom: 4px;
+  .cs-all-btn {
+    padding: 9px 18px;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-bottom: 2px;
   }
 
-  /* List */
-  .cs-list {
+  /* Grid */
+  .cs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* Card */
+  .cs-card {
     display: flex;
     flex-direction: column;
-  }
-
-  .cs-item {
-    display: grid;
-    grid-template-columns: 60px 1fr auto;
-    align-items: center;
-    gap: 32px;
-    padding: 32px 0;
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    transition: background 0.3s var(--ease-out);
-    cursor: pointer;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
     text-decoration: none;
     color: inherit;
+    transition:
+      border-color 0.3s var(--ease-out),
+      transform 0.4s var(--ease-spring),
+      box-shadow 0.4s var(--ease-out);
   }
 
-  .cs-item:first-child {
-    border-top: 1px solid var(--border);
+  .cs-card:hover {
+    border-color: var(--border-2);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
   }
 
-  .cs-item::before {
-    content: '';
+  /* Thumbnail */
+  .cs-thumb {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(145deg, var(--c1) 0%, var(--c2) 100%);
+  }
+
+  .cs-thumb-bg {
     position: absolute;
     inset: 0;
-    background: var(--bg-2);
-    opacity: 0;
-    transition: opacity 0.3s var(--ease-out);
-    z-index: 0;
-    border-radius: var(--radius-sm);
-    margin-inline: -16px;
+    background: linear-gradient(145deg, var(--c1) 0%, var(--c2) 100%);
   }
 
-  .cs-item:hover::before { opacity: 1; }
+  .cs-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out);
+    background: rgba(0,0,0,0.2);
+  }
 
-  .cs-item > * { position: relative; z-index: 1; }
+  .cs-card:hover .cs-thumb-overlay { opacity: 1; }
 
-  /* Bottom bar that slides in on hover */
-  .cs-bar {
+  .cs-play {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    backdrop-filter: blur(4px);
+    transform: scale(0.85);
+    transition: transform 0.3s var(--ease-spring);
+  }
+
+  .cs-card:hover .cs-play { transform: scale(1); }
+
+  /* Decorative lines in thumbnail */
+  .cs-thumb-lines {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: var(--accent-c);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s var(--ease-out);
-  }
-
-  .cs-item:hover .cs-bar { transform: scaleX(1); }
-
-  /* Index */
-  .cs-index {
-    font-family: var(--font-serif);
-    font-size: 13px;
-    color: var(--text-3);
-    letter-spacing: 0.05em;
-    flex-shrink: 0;
-  }
-
-  /* Main content */
-  .cs-main {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    min-width: 0;
+    gap: 8px;
+    padding: 20px 20px 16px;
   }
 
-  .cs-top {
+  .cs-thumb-lines span {
+    display: block;
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+  }
+
+  .cs-thumb-lines span:nth-child(1) { width: 60%; }
+  .cs-thumb-lines span:nth-child(2) { width: 40%; }
+  .cs-thumb-lines span:nth-child(3) { width: 75%; }
+
+  /* Content */
+  .cs-content {
+    padding: 20px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+  }
+
+  .cs-meta {
     display: flex;
     align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .cs-title {
-    font-family: var(--font-serif);
-    font-size: clamp(22px, 2.5vw, 30px);
-    letter-spacing: -0.02em;
-    color: var(--text);
-    transition: color 0.2s;
-    white-space: nowrap;
+    justify-content: space-between;
+    gap: 8px;
   }
 
   .cs-tags {
     display: flex;
-    gap: 6px;
+    gap: 5px;
     flex-wrap: wrap;
   }
 
-  .cs-desc {
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--text-2);
-    max-width: 580px;
-  }
-
-  /* Meta */
-  .cs-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 12px;
-    flex-shrink: 0;
-  }
-
   .cs-year {
-    font-size: 13px;
+    font-size: 11px;
     color: var(--text-3);
+    flex-shrink: 0;
     letter-spacing: 0.04em;
   }
 
-  .cs-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    color: var(--text-2);
-    transition:
-      background 0.25s,
-      border-color 0.25s,
-      color 0.25s,
-      transform 0.35s var(--ease-spring);
+  .cs-title {
+    font-family: var(--font-serif);
+    font-size: clamp(18px, 2vw, 24px);
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.2;
   }
 
-  .cs-item:hover .cs-arrow {
-    background: var(--accent-c);
-    border-color: var(--accent-c);
-    color: #000;
+  .cs-desc {
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--text-2);
+    flex: 1;
+  }
+
+  .cs-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-3);
+    margin-top: 4px;
+    transition: color 0.2s;
+  }
+
+  .cs-card:hover .cs-link { color: var(--text); }
+
+  .cs-link svg {
+    transition: transform 0.3s var(--ease-spring);
+  }
+
+  .cs-card:hover .cs-link svg {
     transform: translate(2px, -2px);
   }
 
-  @media (max-width: 768px) {
-    .cs-item {
-      grid-template-columns: 1fr auto;
-      gap: 16px;
-    }
-    .cs-index { display: none; }
+  @media (max-width: 640px) {
+    .cs-grid { grid-template-columns: 1fr; }
     .cs-header-row { flex-direction: column; align-items: flex-start; }
+    .cs-thumb { height: 160px; }
   }
 </style>

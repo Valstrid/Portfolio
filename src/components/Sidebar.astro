@@ -1,0 +1,387 @@
+---
+const clients = [
+  {
+    company: 'Build Club',
+    person: 'Sarah Chen',
+    title: 'Co-founder & CEO',
+    quote: 'Working with Valstrid was exceptional. The site launched in under 4 weeks and we saw a 3× increase in signups within the first month. Real collaboration, not just delivery.',
+  },
+  {
+    company: 'Arconic Capital',
+    person: 'Marcus Reid',
+    title: 'Managing Partner',
+    quote: 'Valstrid redesigned our investor portal from the ground up. The result is engaging, professional, and exactly positions us the way we wanted. LPs notice the difference immediately.',
+  },
+  {
+    company: 'Preve Health',
+    person: 'Priya Nair',
+    title: 'Head of Product',
+    quote: 'Few combine strategic thinking with execution speed like Valstrid does. The brand feels like us — but the best version of us.',
+  },
+  {
+    company: 'Vale',
+    person: 'James Okafor',
+    title: 'Founder',
+    quote: 'The pitch deck helped us close our seed round. Investors repeatedly commented on how clear and visual the narrative was. That\'s the Valstrid difference.',
+  },
+  {
+    company: 'Foundry Labs',
+    person: 'Alice Bergmann',
+    title: 'CMO',
+    quote: 'We brought Valstrid in for a fast rebrand. Four weeks later we had a complete visual identity — logo, guidelines, website, and social kit.',
+  },
+  {
+    company: 'Syncline AI',
+    person: 'Tom Hayashi',
+    title: 'CTO',
+    quote: 'The Framer build blew our engineers away. Custom animations, CMS, perfect performance scores. Couldn\'t tell it wasn\'t custom-coded until we showed them the source.',
+  },
+  {
+    company: 'IBM Design',
+    person: 'Amara Osei',
+    title: 'Design Lead',
+    quote: 'Clean execution across a multi-touchpoint project. Everything from brand to Framer docs was delivered ahead of schedule. Highly recommend.',
+  },
+  {
+    company: 'Paperbark.ai',
+    person: 'Jake Morrison',
+    title: 'Co-founder',
+    quote: 'Valstrid took a vague brief and turned it into a brand identity that immediately resonated with our users. We launched to strong press coverage.',
+  },
+];
+---
+
+<aside class="sidebar" id="sidebar" aria-label="Site sidebar">
+  <div class="sidebar-inner">
+
+    <!-- Logo -->
+    <div class="sidebar-brand">
+      <a href="/" class="sidebar-wordmark" aria-label="Valstrid home">
+        <span class="sidebar-mark">V</span>
+        <span class="sidebar-name">Valstrid</span>
+      </a>
+      <div class="sidebar-available" aria-label="Available for projects">
+        <span class="available-dot" aria-hidden="true"></span>
+        <span class="available-text">Available</span>
+      </div>
+    </div>
+
+    <!-- Tagline -->
+    <p class="sidebar-tagline">
+      Web & brand design for ambitious companies
+    </p>
+
+    <!-- Client accordion -->
+    <div class="sidebar-clients">
+      <span class="clients-heading">Select clients</span>
+      <div class="clients-list" role="list">
+        {clients.map((client, i) => (
+          <div class="client-item" role="listitem" data-index={i}>
+            <button
+              class="client-toggle"
+              aria-expanded="false"
+              aria-controls={`client-body-${i}`}
+            >
+              <span class="client-name">{client.company}</span>
+              <svg class="client-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M3.5 5.25l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div
+              class="client-body"
+              id={`client-body-${i}`}
+              aria-hidden="true"
+            >
+              <div class="client-body-inner">
+                <p class="client-quote">"{client.quote}"</p>
+                <div class="client-author">
+                  <span class="client-author-name">{client.person}</span>
+                  <span class="client-author-role">{client.title}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="sidebar-footer">
+      <a href="#contact" class="btn btn-primary sidebar-cta">
+        Book a call
+        <svg class="arrow-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+
+  </div>
+</aside>
+
+<style>
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .sidebar::-webkit-scrollbar { display: none; }
+
+  .sidebar-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px;
+    min-height: 100%;
+  }
+
+  /* Brand */
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .sidebar-wordmark {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .sidebar-mark {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 18px;
+    color: #000;
+    font-weight: 400;
+    flex-shrink: 0;
+  }
+
+  .sidebar-name {
+    font-family: var(--font-serif);
+    font-size: 17px;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  /* Available badge */
+  .sidebar-available {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(201, 243, 29, 0.07);
+    border: 1px solid rgba(201, 243, 29, 0.18);
+    border-radius: var(--radius-pill);
+  }
+
+  .available-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(201, 243, 29, 0); }
+    50% { opacity: 0.6; box-shadow: 0 0 0 3px rgba(201, 243, 29, 0.15); }
+  }
+
+  .available-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+  }
+
+  /* Tagline */
+  .sidebar-tagline {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-3);
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 24px;
+  }
+
+  /* Clients section */
+  .sidebar-clients {
+    flex: 1;
+  }
+
+  .clients-heading {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 12px;
+  }
+
+  .clients-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Client item */
+  .client-item {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .client-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 0;
+    background: transparent;
+    cursor: pointer;
+    transition: color 0.2s;
+    gap: 8px;
+  }
+
+  .client-toggle:hover { color: var(--text); }
+
+  .client-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-2);
+    text-align: left;
+    transition: color 0.2s;
+    flex: 1;
+  }
+
+  .client-toggle:hover .client-name,
+  .client-item.open .client-name {
+    color: var(--text);
+  }
+
+  .client-chevron {
+    color: var(--text-3);
+    flex-shrink: 0;
+    transition: transform 0.3s var(--ease-out), color 0.2s;
+  }
+
+  .client-item.open .client-chevron {
+    transform: rotate(180deg);
+    color: var(--accent);
+  }
+
+  /* Accordion body */
+  .client-body {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.45s var(--ease-out);
+  }
+
+  .client-item.open .client-body {
+    max-height: 240px;
+  }
+
+  .client-body-inner {
+    padding: 2px 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .client-quote {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--text-3);
+    font-style: italic;
+  }
+
+  .client-author {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .client-author-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-2);
+  }
+
+  .client-author-role {
+    font-size: 11px;
+    color: var(--text-3);
+  }
+
+  /* Footer */
+  .sidebar-footer {
+    padding-top: 24px;
+    margin-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .sidebar-cta {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 20px;
+    font-size: 13px;
+  }
+
+  /* Mobile: sidebar becomes a drawer */
+  @media (max-width: 960px) {
+    .sidebar {
+      position: fixed;
+      top: 56px; /* below mobile header */
+      left: 0;
+      height: calc(100vh - 56px);
+      width: var(--sidebar-w);
+      transform: translateX(-100%);
+      transition: transform 0.35s var(--ease-out);
+      z-index: 100;
+      border-right: 1px solid var(--border-2);
+    }
+
+    .sidebar.mobile-open {
+      transform: translateX(0);
+    }
+  }
+</style>
+
+<script>
+  const items = document.querySelectorAll<HTMLElement>('.client-item');
+
+  items.forEach((item) => {
+    const btn = item.querySelector<HTMLButtonElement>('.client-toggle');
+    const body = item.querySelector<HTMLElement>('.client-body');
+
+    btn?.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+
+      // Close all others
+      items.forEach((i) => {
+        i.classList.remove('open');
+        const b = i.querySelector<HTMLElement>('.client-body');
+        if (b) b.setAttribute('aria-hidden', 'true');
+        const t = i.querySelector<HTMLButtonElement>('.client-toggle');
+        if (t) t.setAttribute('aria-expanded', 'false');
+      });
+
+      if (!isOpen) {
+        item.classList.add('open');
+        body?.setAttribute('aria-hidden', 'false');
+        btn?.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

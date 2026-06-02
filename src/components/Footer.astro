@@ -3,231 +3,309 @@ const socials = [
   { label: 'Twitter / X', href: 'https://twitter.com/' },
   { label: 'LinkedIn', href: 'https://linkedin.com/' },
   { label: 'Dribbble', href: 'https://dribbble.com/' },
-  { label: 'GitHub', href: 'https://github.com/' },
-];
-
-const links = [
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'About', href: '#about' },
-  { label: 'FAQ', href: '#faq' },
 ];
 ---
 
-<!-- Contact / CTA Section -->
+<!-- Contact / CTA -->
 <section class="contact" id="contact">
-  <div class="container">
-    <div class="contact-inner reveal">
-      <div class="contact-left">
-        <p class="section-label">Let's talk</p>
-        <h2 class="display contact-headline">
-          Have a project<br />
-          in mind?
-        </h2>
+
+  <div class="contact-content">
+
+    <div class="contact-left reveal">
+      <span class="section-label">Let's work together</span>
+      <h2 class="display contact-headline">
+        Let's build<br />
+        something great.
+      </h2>
+      <p class="contact-desc body-lg">
+        Book a free 15-minute intro call. No obligation — just a quick
+        conversation to see if we're a good fit.
+      </p>
+      <div class="contact-actions">
+        <a href="mailto:hello@valstrid.com" class="btn btn-primary contact-btn">
+          Book an intro call
+          <svg class="arrow-icon" width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
         <a href="mailto:hello@valstrid.com" class="contact-email link-underline">
           hello@valstrid.com
         </a>
       </div>
-      <div class="contact-right reveal reveal-delay-2">
-        <p class="contact-desc body-lg">
-          I'm open to new projects, collaborations, and conversations.
-          If you have something in mind — even just an early idea — reach out.
-          I typically respond within 24 hours.
-        </p>
-        <a href="mailto:hello@valstrid.com" class="btn btn-primary contact-btn">
-          Send a message
-          <svg class="arrow-icon" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+    </div>
+
+    <!-- Cal.com placeholder -->
+    <div class="contact-cal reveal reveal-delay-2">
+      <div class="cal-placeholder">
+        <div class="cal-header">
+          <div class="cal-dot cal-dot-red"></div>
+          <div class="cal-dot cal-dot-yellow"></div>
+          <div class="cal-dot cal-dot-green"></div>
+          <span class="cal-title">cal.com/valstrid</span>
+        </div>
+        <div class="cal-body">
+          <div class="cal-month">
+            <span class="cal-month-label">June 2026</span>
+            <div class="cal-grid">
+              {[...Array(28)].map((_, i) => {
+                const day = i + 1;
+                const available = [3, 5, 10, 12, 17, 19, 24, 26].includes(day);
+                return (
+                  <button
+                    class={`cal-day ${available ? 'cal-day-available' : ''}`}
+                    aria-label={available ? `Book ${day} June` : `${day} June, unavailable`}
+                    disabled={!available}
+                  >
+                    {day}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+          <p class="cal-note">Select a date to see available slots</p>
+        </div>
       </div>
     </div>
+
   </div>
+
 </section>
 
+<!-- Footer -->
 <footer class="footer">
-  <div class="container footer-inner">
-
-    <!-- Top row -->
-    <div class="footer-top">
-      <a href="/" class="footer-logo" aria-label="Valstrid home">
-        <span class="footer-logo-text">Valstrid</span>
-        <span class="footer-logo-dot"></span>
-      </a>
-      <nav class="footer-nav" aria-label="Footer navigation">
-        {links.map(link => (
-          <a href={link.href} class="footer-link link-underline">{link.label}</a>
-        ))}
-      </nav>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <a href="/" class="footer-wordmark" aria-label="Valstrid home">Valstrid</a>
+      <span class="footer-tagline">Web & Brand Design</span>
     </div>
-
-    <div class="divider"></div>
-
-    <!-- Bottom row -->
-    <div class="footer-bottom">
-      <p class="footer-copy">
-        © {new Date().getFullYear()} Valstrid. All rights reserved.
-      </p>
-      <div class="footer-socials">
+    <div class="footer-right">
+      <nav class="footer-socials" aria-label="Social links">
         {socials.map(s => (
           <a href={s.href} class="footer-social link-underline" target="_blank" rel="noopener noreferrer">
             {s.label}
           </a>
         ))}
-      </div>
+      </nav>
+      <p class="footer-copy">© {new Date().getFullYear()} Valstrid</p>
     </div>
-
   </div>
 </footer>
 
 <style>
-  /* ---- Contact Section ---- */
+  /* ---- Contact ---- */
   .contact {
     padding-block: var(--section-py);
-    border-top: 1px solid var(--border);
-    background: var(--bg-2);
+    padding-inline: var(--section-px);
+    border-bottom: 1px solid var(--border);
   }
 
-  .contact-inner {
+  .contact-content {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
+    gap: 56px;
+    align-items: start;
   }
 
   .contact-left {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
 
   .contact-headline {
-    font-size: clamp(40px, 6vw, 72px);
-  }
-
-  .contact-email {
-    font-family: var(--font-serif);
-    font-size: clamp(18px, 2vw, 26px);
-    color: var(--text-2);
-    letter-spacing: -0.01em;
-    transition: color 0.2s;
-  }
-
-  .contact-email:hover { color: var(--text); }
-
-  .contact-right {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.05;
   }
 
   .contact-desc {
-    line-height: 1.7;
+    font-size: 15px;
+    max-width: 380px;
+  }
+
+  .contact-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 4px;
   }
 
   .contact-btn {
-    padding: 16px 32px;
-    font-size: 15px;
-    align-self: flex-start;
+    padding: 13px 26px;
+    font-size: 14px;
+  }
+
+  .contact-email {
+    font-size: 13px;
+    color: var(--text-3);
+    transition: color 0.2s;
+  }
+
+  .contact-email:hover { color: var(--text-2); }
+
+  /* Cal.com placeholder */
+  .cal-placeholder {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .cal-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-2);
+  }
+
+  .cal-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+  }
+
+  .cal-dot-red { background: #ff5f57; }
+  .cal-dot-yellow { background: #febc2e; }
+  .cal-dot-green { background: #28c840; }
+
+  .cal-title {
+    font-size: 11px;
+    color: var(--text-3);
+    margin-left: 4px;
+    font-family: var(--font-sans);
+  }
+
+  .cal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cal-month {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cal-month-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+    letter-spacing: -0.01em;
+  }
+
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .cal-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--text-3);
+    background: transparent;
+    border: none;
+    cursor: default;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .cal-day-available {
+    background: rgba(201, 243, 29, 0.08);
+    color: var(--accent);
+    cursor: pointer;
+    border: 1px solid rgba(201, 243, 29, 0.15);
+  }
+
+  .cal-day-available:hover {
+    background: rgba(201, 243, 29, 0.16);
+    border-color: rgba(201, 243, 29, 0.3);
+  }
+
+  .cal-note {
+    font-size: 11px;
+    color: var(--text-3);
+    text-align: center;
   }
 
   /* ---- Footer ---- */
   .footer {
-    padding-block: 40px;
-    border-top: 1px solid var(--border);
+    padding-block: 24px;
+    padding-inline: var(--section-px);
   }
 
   .footer-inner {
     display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .footer-top {
-    display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 20px;
     flex-wrap: wrap;
   }
 
-  .footer-logo {
+  .footer-left {
     display: flex;
     align-items: center;
-    gap: 6px;
-    text-decoration: none;
+    gap: 10px;
   }
 
-  .footer-logo-text {
+  .footer-wordmark {
     font-family: var(--font-serif);
-    font-size: 20px;
+    font-size: 15px;
     letter-spacing: -0.02em;
     color: var(--text-2);
     transition: color 0.2s;
   }
 
-  .footer-logo:hover .footer-logo-text { color: var(--text); }
+  .footer-wordmark:hover { color: var(--text); }
 
-  .footer-logo-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--accent);
-    margin-bottom: 2px;
-  }
-
-  .footer-nav {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    flex-wrap: wrap;
-  }
-
-  .footer-link {
-    font-size: 14px;
-    color: var(--text-2);
-    transition: color 0.2s;
-  }
-
-  .footer-link:hover { color: var(--text); }
-
-  .footer-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .footer-copy {
-    font-size: 13px;
+  .footer-tagline {
+    font-size: 12px;
     color: var(--text-3);
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
   }
 
   .footer-socials {
     display: flex;
     align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    gap: 16px;
   }
 
   .footer-social {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--text-3);
     transition: color 0.2s;
   }
 
   .footer-social:hover { color: var(--text-2); }
 
+  .footer-copy {
+    font-size: 12px;
+    color: var(--text-3);
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
-    .contact-inner {
+    .contact-content {
       grid-template-columns: 1fr;
-      gap: 48px;
+      gap: 40px;
     }
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .footer-right { flex-direction: column; align-items: flex-start; gap: 12px; }
   }
 </style>

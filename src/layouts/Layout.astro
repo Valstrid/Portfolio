@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Sidebar from '../components/Sidebar.astro';
 
 export interface Props {
   title?: string;
@@ -21,7 +22,6 @@ const {
     <meta name="theme-color" content="#080808" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
-    <!-- Preconnect for Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
@@ -39,16 +39,34 @@ const {
       </div>
     </div>
 
-    <!-- Main content -->
-    <slot />
+    <!-- Mobile header -->
+    <header class="mobile-header" aria-label="Mobile navigation">
+      <a href="/" class="mobile-logo">Valstrid</a>
+      <button class="mobile-hamburger" id="mobile-hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <!-- Mobile overlay -->
+    <div id="mobile-overlay" aria-hidden="true"></div>
+
+    <!-- Site grid -->
+    <div class="site-grid">
+      <Sidebar />
+      <div class="site-main">
+        <slot />
+      </div>
+    </div>
 
     <script>
-      // Page Loader: dismiss after animation finishes
+      // Page Loader
       window.addEventListener('load', () => {
         setTimeout(() => {
           const loader = document.getElementById('page-loader');
           if (loader) loader.classList.add('loaded');
-        }, 1500);
+        }, 1400);
       });
 
       // Scroll-triggered reveal
@@ -61,9 +79,44 @@ const {
             }
           });
         },
-        { threshold: 0.1, rootMargin: '0px 0px -32px 0px' }
+        { threshold: 0.08, rootMargin: '0px 0px -24px 0px' }
       );
       document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+      // Mobile menu
+      const hamburger = document.getElementById('mobile-hamburger') as HTMLButtonElement;
+      const overlay = document.getElementById('mobile-overlay') as HTMLDivElement;
+      const sidebar = document.getElementById('sidebar') as HTMLElement;
+
+      function openMenu() {
+        hamburger?.classList.add('active');
+        sidebar?.classList.add('mobile-open');
+        overlay?.classList.add('show');
+        hamburger?.setAttribute('aria-expanded', 'true');
+        overlay?.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        hamburger?.classList.remove('active');
+        sidebar?.classList.remove('mobile-open');
+        overlay?.classList.remove('show');
+        hamburger?.setAttribute('aria-expanded', 'false');
+        overlay?.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      hamburger?.addEventListener('click', () => {
+        if (sidebar?.classList.contains('mobile-open')) closeMenu();
+        else openMenu();
+      });
+
+      overlay?.addEventListener('click', closeMenu);
+
+      // Close on link click (mobile)
+      sidebar?.querySelectorAll('a[href^="#"]').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
     </script>
   </body>
 </html>

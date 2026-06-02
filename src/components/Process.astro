@@ -1,0 +1,172 @@
+---
+const steps = [
+  {
+    num: '01',
+    title: 'Intro call',
+    subtitle: '15 min — Free',
+    desc: 'We talk through your goals, timeline, and budget. No commitment, no formalities — just clarity on whether we\'re a good fit.',
+    rotate: '-3deg',
+    ty: '10px',
+  },
+  {
+    num: '02',
+    title: 'Sprint planning',
+    subtitle: '1–2 days',
+    desc: 'We define scope, deliverables, and milestones. You get a fixed-price proposal and clear schedule before anything starts.',
+    rotate: '0.5deg',
+    ty: '0px',
+  },
+  {
+    num: '03',
+    title: 'Design, build & launch',
+    subtitle: '3–4 weeks',
+    desc: 'Heads-down execution with regular check-ins and Loom walkthroughs. You get a polished, production-ready result.',
+    rotate: '2.5deg',
+    ty: '6px',
+  },
+];
+---
+
+<section class="process" id="process">
+
+  <div class="process-header reveal">
+    <span class="section-label">How it works</span>
+    <h2 class="headline process-headline">From first call<br /> to live site</h2>
+  </div>
+
+  <div class="process-cards" aria-label="3-step process">
+    {steps.map((step, i) => (
+      <div
+        class={`process-card card reveal reveal-delay-${i + 1}`}
+        style={`--rot: ${step.rotate}; --ty: ${step.ty};`}
+        aria-label={`Step ${step.num}: ${step.title}`}
+      >
+        <div class="process-num">{step.num}</div>
+        <div class="process-body">
+          <h3 class="process-title">{step.title}</h3>
+          <span class="process-subtitle">{step.subtitle}</span>
+          <p class="process-desc">{step.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+
+</section>
+
+<style>
+  .process {
+    padding-block: var(--section-py);
+    padding-inline: var(--section-px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .process-header {
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .process-headline {
+    font-size: clamp(30px, 4vw, 48px);
+  }
+
+  /* Cards layout */
+  .process-cards {
+    display: flex;
+    gap: 0;
+    justify-content: flex-start;
+    padding: 24px 0 32px;
+    position: relative;
+  }
+
+  .process-card {
+    flex: 1;
+    padding: 28px 24px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transform: rotate(var(--rot)) translateY(var(--ty));
+    transition:
+      transform 0.4s var(--ease-spring),
+      border-color 0.3s var(--ease-out),
+      box-shadow 0.4s var(--ease-out);
+    position: relative;
+    min-height: 280px;
+  }
+
+  .process-cards .process-card:not(:first-child) {
+    margin-left: -12px;
+  }
+
+  .process-card:hover {
+    transform: rotate(0deg) translateY(-8px) !important;
+    border-color: var(--border-2);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+    z-index: 3;
+  }
+
+  .process-card:nth-child(1) { z-index: 1; }
+  .process-card:nth-child(2) { z-index: 2; }
+  .process-card:nth-child(3) { z-index: 1; }
+
+  /* Number */
+  .process-num {
+    font-family: var(--font-serif);
+    font-size: 40px;
+    letter-spacing: -0.04em;
+    color: var(--border-2);
+    line-height: 1;
+    font-style: italic;
+  }
+
+  /* Body */
+  .process-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  .process-title {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .process-subtitle {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .process-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-2);
+    margin-top: 8px;
+  }
+
+  @media (max-width: 640px) {
+    .process-cards {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .process-card {
+      transform: none !important;
+      min-height: auto;
+    }
+
+    .process-cards .process-card:not(:first-child) {
+      margin-left: 0;
+    }
+  }
+</style>
