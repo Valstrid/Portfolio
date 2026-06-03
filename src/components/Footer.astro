@@ -8,7 +8,6 @@ const socials = [
 
 <!-- Contact / CTA -->
 <section class="contact" id="contact">
-
   <div class="contact-content">
 
     <div class="contact-left reveal">
@@ -34,41 +33,122 @@ const socials = [
       </div>
     </div>
 
-    <!-- Cal.com placeholder -->
+    <!-- Interactive booking calendar -->
     <div class="contact-cal reveal reveal-delay-2">
-      <div class="cal-placeholder">
-        <div class="cal-header">
-          <div class="cal-dot cal-dot-red"></div>
-          <div class="cal-dot cal-dot-yellow"></div>
-          <div class="cal-dot cal-dot-green"></div>
-          <span class="cal-title">cal.com/valstrid</span>
+      <div class="booking-widget">
+
+        <!-- macOS window chrome -->
+        <div class="bw-chrome">
+          <div class="bw-dot bw-dot-red"></div>
+          <div class="bw-dot bw-dot-yellow"></div>
+          <div class="bw-dot bw-dot-green"></div>
+          <span class="bw-chrome-title">cal.com/valstrid</span>
         </div>
-        <div class="cal-body">
-          <div class="cal-month">
-            <span class="cal-month-label">June 2026</span>
-            <div class="cal-grid">
-              {[...Array(28)].map((_, i) => {
-                const day = i + 1;
-                const available = [3, 5, 10, 12, 17, 19, 24, 26].includes(day);
-                return (
-                  <button
-                    class={`cal-day ${available ? 'cal-day-available' : ''}`}
-                    aria-label={available ? `Book ${day} June` : `${day} June, unavailable`}
-                    disabled={!available}
-                  >
-                    {day}
-                  </button>
-                );
-              })}
-            </div>
+
+        <!-- Step 1: Calendar grid -->
+        <div class="bw-step is-active" id="bw-step-cal">
+          <div class="bw-cal-nav">
+            <button class="bw-nav-btn" id="bw-prev" aria-label="Previous month" disabled>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <span class="bw-month-label" id="bw-month-label">Loading…</span>
+            <button class="bw-nav-btn" id="bw-next" aria-label="Next month">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M4.5 2L8.5 6L4.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
-          <p class="cal-note">Select a date to see available slots</p>
+          <div class="bw-weekdays" aria-hidden="true">
+            <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+          </div>
+          <div class="bw-grid" id="bw-grid" role="grid" aria-label="Select a date"></div>
+          <p class="bw-hint">Mon – Fri &nbsp;·&nbsp; 15-min intro call &nbsp;·&nbsp; Free</p>
         </div>
+
+        <!-- Step 2: Time slots -->
+        <div class="bw-step" id="bw-step-slots">
+          <div class="bw-slots-header">
+            <button class="bw-back-btn" id="bw-back-from-slots" aria-label="Back to calendar">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <span class="bw-slots-date" id="bw-slots-date"></span>
+            <button class="bw-toggle-fmt" id="bw-toggle-fmt" aria-label="Toggle time format">24h</button>
+          </div>
+          <div class="bw-slots-grid" id="bw-slots-grid"></div>
+        </div>
+
+        <!-- Step 3: Booking form -->
+        <div class="bw-step" id="bw-step-form">
+          <div class="bw-form-header">
+            <button class="bw-back-btn" id="bw-back-from-form" aria-label="Back to time slots">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                <path d="M7.5 2L3.5 6L7.5 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="bw-form-datetime" id="bw-form-datetime"></div>
+          </div>
+          <form class="bw-form" id="bw-form" novalidate>
+            <div class="bw-fields-row">
+              <div class="bw-field">
+                <label for="bw-name">Name <span class="bw-req" aria-hidden="true">*</span></label>
+                <input type="text" id="bw-name" name="name" required autocomplete="name" placeholder="Your name" />
+              </div>
+              <div class="bw-field">
+                <label for="bw-email">Email <span class="bw-req" aria-hidden="true">*</span></label>
+                <input type="email" id="bw-email" name="email" required autocomplete="email" placeholder="you@email.com" />
+              </div>
+            </div>
+            <div class="bw-field">
+              <label for="bw-website">Company / Website</label>
+              <input type="url" id="bw-website" name="website" autocomplete="url" placeholder="https://yoursite.com" />
+            </div>
+            <div class="bw-field">
+              <label for="bw-service">Service <span class="bw-req" aria-hidden="true">*</span></label>
+              <div class="bw-select-wrap">
+                <select id="bw-service" name="service" required>
+                  <option value="" disabled selected>Select a service…</option>
+                  <option value="website">Website Design</option>
+                  <option value="brand">Brand Identity</option>
+                  <option value="framer">Framer Development</option>
+                  <option value="other">Other / Not sure yet</option>
+                </select>
+                <svg class="bw-select-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+                  <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="bw-field">
+              <label for="bw-desc">Project description <span class="bw-req" aria-hidden="true">*</span></label>
+              <textarea id="bw-desc" name="description" required rows="3" placeholder="Tell me a bit about your project…"></textarea>
+            </div>
+            <p class="bw-form-error" id="bw-form-error" hidden>Please fill in all required fields.</p>
+            <button type="submit" class="btn btn-primary bw-submit">
+              Request booking
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 12L12 2M12 2H5M12 2V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Step 4: Success -->
+        <div class="bw-step" id="bw-step-success">
+          <div class="bw-success">
+            <div class="bw-success-icon" aria-hidden="true">&#10003;</div>
+            <p class="bw-success-title">Request sent!</p>
+            <p class="bw-success-msg" id="bw-success-msg"></p>
+            <button class="btn btn-ghost bw-reset" id="bw-reset">Book another time</button>
+          </div>
+        </div>
+
       </div>
     </div>
 
   </div>
-
 </section>
 
 <!-- Footer -->
@@ -86,7 +166,7 @@ const socials = [
           </a>
         ))}
       </nav>
-      <p class="footer-copy">© {new Date().getFullYear()} Valstrid</p>
+      <p class="footer-copy">&copy; {new Date().getFullYear()} Valstrid</p>
     </div>
   </div>
 </footer>
@@ -143,96 +223,394 @@ const socials = [
 
   .contact-email:hover { color: var(--text-2); }
 
-  /* Cal.com placeholder */
-  .cal-placeholder {
+  /* ---- Booking Widget ---- */
+  .booking-widget {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
-  .cal-header {
+  /* macOS chrome bar */
+  .bw-chrome {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 12px 16px;
+    padding: 11px 16px;
     border-bottom: 1px solid var(--border);
     background: var(--bg-2);
+    flex-shrink: 0;
   }
 
-  .cal-dot {
+  .bw-dot {
     width: 9px;
     height: 9px;
     border-radius: 50%;
   }
+  .bw-dot-red    { background: #ff5f57; }
+  .bw-dot-yellow { background: #febc2e; }
+  .bw-dot-green  { background: #28c840; }
 
-  .cal-dot-red { background: #ff5f57; }
-  .cal-dot-yellow { background: #febc2e; }
-  .cal-dot-green { background: #28c840; }
-
-  .cal-title {
+  .bw-chrome-title {
     font-size: 11px;
     color: var(--text-3);
     margin-left: 4px;
     font-family: var(--font-sans);
   }
 
-  .cal-body {
-    padding: 20px;
-    display: flex;
+  /* Steps */
+  .bw-step {
+    display: none;
     flex-direction: column;
-    gap: 16px;
+    padding: 18px 20px;
+    gap: 14px;
   }
 
-  .cal-month {
+  .bw-step.is-active {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    animation: bwFadeIn 0.22s var(--ease-out) forwards;
   }
 
-  .cal-month-label {
+  @keyframes bwFadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Calendar navigation */
+  .bw-cal-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .bw-month-label {
     font-size: 13px;
     font-weight: 600;
-    color: var(--text-2);
+    color: var(--text);
     letter-spacing: -0.01em;
   }
 
-  .cal-grid {
+  .bw-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .bw-nav-btn:hover:not(:disabled) {
+    background: var(--bg-3);
+    color: var(--text);
+    border-color: var(--border-2);
+  }
+  .bw-nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+  /* Weekday headers */
+  .bw-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
+    gap: 3px;
+  }
+  .bw-weekdays span {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-3);
+    text-align: center;
+    padding-block: 2px 4px;
   }
 
-  .cal-day {
+  /* Day grid */
+  .bw-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+  }
+
+  .bw-day {
     aspect-ratio: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
+    border-radius: 5px;
     font-size: 11px;
-    color: var(--text-3);
+    font-family: var(--font-sans);
     background: transparent;
-    border: none;
+    border: 1px solid transparent;
+    color: var(--text-3);
     cursor: default;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
   }
 
-  .cal-day-available {
-    background: rgba(201, 243, 29, 0.08);
+  .bw-day-empty    { pointer-events: none; }
+  .bw-day-disabled { opacity: 0.2; }
+
+  .bw-day-available {
+    background: rgba(201, 243, 29, 0.06);
     color: var(--accent);
     cursor: pointer;
-    border: 1px solid rgba(201, 243, 29, 0.15);
+    border-color: rgba(201, 243, 29, 0.12);
+  }
+  .bw-day-available:hover {
+    background: rgba(201, 243, 29, 0.14);
+    border-color: rgba(201, 243, 29, 0.28);
   }
 
-  .cal-day-available:hover {
-    background: rgba(201, 243, 29, 0.16);
-    border-color: rgba(201, 243, 29, 0.3);
+  .bw-day-today {
+    outline: 1.5px solid rgba(201, 243, 29, 0.35);
+    outline-offset: -1px;
   }
 
-  .cal-note {
-    font-size: 11px;
+  .bw-day-selected {
+    background: var(--accent) !important;
+    color: #080808 !important;
+    border-color: transparent !important;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .bw-hint {
+    font-size: 10px;
     color: var(--text-3);
     text-align: center;
+    padding-top: 2px;
+  }
+
+  /* Slots header */
+  .bw-slots-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bw-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .bw-back-btn:hover { background: var(--bg-3); border-color: var(--border-2); }
+
+  .bw-slots-date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bw-toggle-fmt {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-3);
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 7px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+    letter-spacing: 0.04em;
+    flex-shrink: 0;
+    font-family: var(--font-sans);
+  }
+  .bw-toggle-fmt:hover { color: var(--text-2); border-color: var(--border-2); }
+
+  /* Slots grid */
+  .bw-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    max-height: 192px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-2) transparent;
+  }
+
+  .bw-slot {
+    padding: 8px 4px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: var(--font-sans);
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    color: var(--text-2);
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .bw-slot:hover { background: var(--bg-2); color: var(--text); border-color: var(--border-2); }
+  .bw-slot-selected {
+    background: var(--accent) !important;
+    color: #080808 !important;
+    border-color: transparent !important;
+    font-weight: 700;
+  }
+
+  .bw-no-slots {
+    font-size: 12px;
+    color: var(--text-3);
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 24px 0;
+  }
+
+  /* Form header */
+  .bw-form-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .bw-form-datetime {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Form fields */
+  .bw-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .bw-fields-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .bw-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .bw-field label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-3);
+    letter-spacing: 0.02em;
+  }
+
+  .bw-req { color: var(--accent); }
+
+  .bw-field input,
+  .bw-field select,
+  .bw-field textarea {
+    background: var(--bg-3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 11px;
+    font-size: 12px;
+    color: var(--text);
+    font-family: var(--font-sans);
+    outline: none;
+    transition: border-color 0.15s;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .bw-field input::placeholder,
+  .bw-field textarea::placeholder { color: var(--text-3); }
+  .bw-field input:focus,
+  .bw-field select:focus,
+  .bw-field textarea:focus { border-color: var(--border-2); }
+  .bw-field textarea { resize: vertical; min-height: 64px; }
+
+  .bw-select-wrap { position: relative; }
+  .bw-select-wrap select { cursor: pointer; padding-right: 28px; }
+  .bw-select-arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-3);
+    pointer-events: none;
+  }
+
+  .bw-form-error {
+    font-size: 11px;
+    color: #ff5f57;
+    padding: 6px 10px;
+    background: rgba(255, 95, 87, 0.08);
+    border: 1px solid rgba(255, 95, 87, 0.2);
+    border-radius: 5px;
+  }
+  .bw-form-error[hidden] { display: none; }
+
+  .bw-submit {
+    font-size: 13px;
+    padding: 11px 22px;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+
+  /* Success step */
+  .bw-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+    padding: 20px 0 10px;
+  }
+
+  .bw-success-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(201, 243, 29, 0.1);
+    border: 1px solid rgba(201, 243, 29, 0.25);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .bw-success-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .bw-success-msg {
+    font-size: 12px;
+    color: var(--text-2);
+    max-width: 280px;
+    line-height: 1.55;
+  }
+
+  .bw-reset {
+    font-size: 12px;
+    padding: 8px 18px;
+    margin-top: 4px;
   }
 
   /* ---- Footer ---- */
@@ -302,6 +680,9 @@ const socials = [
       grid-template-columns: 1fr;
       gap: 40px;
     }
+    .bw-fields-row {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 480px) {
@@ -309,3 +690,263 @@ const socials = [
     .footer-right { flex-direction: column; align-items: flex-start; gap: 12px; }
   }
 </style>
+
+<script>
+(function () {
+  // ── State ──────────────────────────────────────────────────────────────
+  const TODAY = new Date();
+  TODAY.setHours(0, 0, 0, 0);
+
+  let viewYear     = TODAY.getFullYear();
+  let viewMonth    = TODAY.getMonth(); // 0-based
+  let selectedDate = null;             // Date object
+  let selectedSlot = null;             // "HH:MM" string
+  let use24h       = true;
+
+  // ── DOM refs ────────────────────────────────────────────────────────────
+  const elGrid       = document.getElementById('bw-grid');
+  const elMonthLabel = document.getElementById('bw-month-label');
+  const elPrev       = document.getElementById('bw-prev');
+  const elNext       = document.getElementById('bw-next');
+  const elSlotsDate  = document.getElementById('bw-slots-date');
+  const elSlotsGrid  = document.getElementById('bw-slots-grid');
+  const elToggleFmt  = document.getElementById('bw-toggle-fmt');
+  const elFormDT     = document.getElementById('bw-form-datetime');
+  const elForm       = document.getElementById('bw-form');
+  const elFormError  = document.getElementById('bw-form-error');
+  const elSuccessMsg = document.getElementById('bw-success-msg');
+  const elReset      = document.getElementById('bw-reset');
+
+  const STEP_IDS = ['bw-step-cal', 'bw-step-slots', 'bw-step-form', 'bw-step-success'];
+
+  const MONTHS = [
+    'January','February','March','April','May','June',
+    'July','August','September','October','November','December'
+  ];
+
+  // ── Step navigation ─────────────────────────────────────────────────────
+  function showStep(id) {
+    STEP_IDS.forEach(sid => {
+      document.getElementById(sid).classList.toggle('is-active', sid === id);
+    });
+  }
+
+  // ── Calendar rendering ───────────────────────────────────────────────────
+  function renderCalendar() {
+    elMonthLabel.textContent = `${MONTHS[viewMonth]} ${viewYear}`;
+
+    const atCurrentMonth =
+      viewYear === TODAY.getFullYear() && viewMonth === TODAY.getMonth();
+    elPrev.disabled = atCurrentMonth;
+
+    const firstDow    = new Date(viewYear, viewMonth, 1).getDay(); // 0=Sun
+    const offset      = (firstDow + 6) % 7;                        // Mon-based
+    const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+    elGrid.innerHTML = '';
+
+    // Empty leading cells
+    for (let i = 0; i < offset; i++) {
+      const blank = document.createElement('div');
+      blank.className = 'bw-day bw-day-empty';
+      blank.setAttribute('aria-hidden', 'true');
+      elGrid.appendChild(blank);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(viewYear, viewMonth, d);
+      const dow  = date.getDay(); // 0=Sun, 6=Sat
+
+      const isWeekend   = dow === 0 || dow === 6;
+      const isPast      = date < TODAY;
+      const isToday     = date.getTime() === TODAY.getTime();
+      const isAvailable = !isWeekend && !isPast;
+      const isSelected  = selectedDate && date.getTime() === selectedDate.getTime();
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'bw-day';
+      btn.textContent = d;
+
+      if (isSelected)       btn.classList.add('bw-day-selected');
+      else if (isAvailable) btn.classList.add('bw-day-available');
+      if (isToday)          btn.classList.add('bw-day-today');
+      if (!isAvailable) {
+        btn.disabled = true;
+        btn.classList.add('bw-day-disabled');
+      }
+
+      const dateStr = date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
+      btn.setAttribute('aria-label',
+        isAvailable ? `Book ${dateStr}` : `${dateStr}, unavailable`);
+
+      if (isAvailable) {
+        btn.addEventListener('click', () => selectDate(date));
+      }
+
+      elGrid.appendChild(btn);
+    }
+  }
+
+  // ── Date selection → slots ───────────────────────────────────────────────
+  function selectDate(date) {
+    selectedDate = date;
+    selectedSlot = null;
+
+    elSlotsDate.textContent = date.toLocaleDateString('en-GB', {
+      weekday: 'long', day: 'numeric', month: 'long'
+    });
+
+    renderSlots();
+    showStep('bw-step-slots');
+  }
+
+  // ── Slot rendering ───────────────────────────────────────────────────────
+  function renderSlots() {
+    elSlotsGrid.innerHTML = '';
+
+    const now     = new Date();
+    const isToday = selectedDate && selectedDate.getTime() === TODAY.getTime();
+
+    for (let h = 9; h <= 18; h++) {
+      for (let m = 0; m < 60; m += 30) {
+        if (h === 18 && m > 30) continue; // last slot: 18:30
+
+        if (isToday) {
+          const slotTime = new Date(selectedDate);
+          slotTime.setHours(h, m, 0, 0);
+          if (slotTime <= now) continue;
+        }
+
+        const key = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'bw-slot';
+        if (selectedSlot === key) btn.classList.add('bw-slot-selected');
+        btn.textContent = formatTime(h, m);
+        btn.dataset.slot = key;
+        btn.addEventListener('click', () => selectSlot(key));
+        elSlotsGrid.appendChild(btn);
+      }
+    }
+
+    if (!elSlotsGrid.children.length) {
+      const msg = document.createElement('p');
+      msg.className = 'bw-no-slots';
+      msg.textContent = 'No slots available for this day.';
+      elSlotsGrid.appendChild(msg);
+    }
+  }
+
+  function formatTime(h, m) {
+    const mm = String(m).padStart(2, '0');
+    if (use24h) return `${String(h).padStart(2, '0')}:${mm}`;
+    const period = h >= 12 ? 'PM' : 'AM';
+    const h12    = h % 12 || 12;
+    return `${h12}:${mm} ${period}`;
+  }
+
+  // ── Slot selection → form ────────────────────────────────────────────────
+  function selectSlot(key) {
+    selectedSlot = key;
+    renderSlots(); // refresh to show selected highlight
+
+    const [h, m] = key.split(':').map(Number);
+    const dateLabel = selectedDate.toLocaleDateString('en-GB', {
+      weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+    });
+    elFormDT.textContent = `${dateLabel} · ${formatTime(h, m)}`;
+    showStep('bw-step-form');
+  }
+
+  // ── Format toggle ────────────────────────────────────────────────────────
+  elToggleFmt.addEventListener('click', () => {
+    use24h = !use24h;
+    elToggleFmt.textContent = use24h ? '24h' : '12h';
+    renderSlots();
+
+    // keep form datetime header in sync if form is open
+    if (document.getElementById('bw-step-form').classList.contains('is-active') && selectedSlot) {
+      const [h, m] = selectedSlot.split(':').map(Number);
+      const dateLabel = selectedDate.toLocaleDateString('en-GB', {
+        weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+      });
+      elFormDT.textContent = `${dateLabel} · ${formatTime(h, m)}`;
+    }
+  });
+
+  // ── Month navigation ─────────────────────────────────────────────────────
+  elPrev.addEventListener('click', () => {
+    if (viewMonth === 0) { viewMonth = 11; viewYear--; }
+    else viewMonth--;
+    renderCalendar();
+  });
+
+  elNext.addEventListener('click', () => {
+    if (viewMonth === 11) { viewMonth = 0; viewYear++; }
+    else viewMonth++;
+    renderCalendar();
+  });
+
+  // ── Back buttons ─────────────────────────────────────────────────────────
+  document.getElementById('bw-back-from-slots').addEventListener('click', () => {
+    renderCalendar();
+    showStep('bw-step-cal');
+  });
+
+  document.getElementById('bw-back-from-form').addEventListener('click', () => {
+    showStep('bw-step-slots');
+  });
+
+  // ── Form submission ───────────────────────────────────────────────────────
+  elForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name    = elForm.elements['name'].value.trim();
+    const email   = elForm.elements['email'].value.trim();
+    const service = elForm.elements['service'].value;
+    const desc    = elForm.elements['description'].value.trim();
+
+    if (!name || !email || !service || !desc) {
+      elFormError.removeAttribute('hidden');
+      return;
+    }
+    elFormError.setAttribute('hidden', '');
+
+    // TODO: integrate with Cal.com API or backend
+    console.log('Booking request:', {
+      date:        selectedDate.toISOString().split('T')[0],
+      slot:        selectedSlot,
+      name,
+      email,
+      website:     elForm.elements['website'].value.trim(),
+      service,
+      description: desc,
+    });
+
+    const [h, m] = selectedSlot.split(':').map(Number);
+    const dateLabel = selectedDate.toLocaleDateString('en-GB', {
+      weekday: 'long', day: 'numeric', month: 'long'
+    });
+    elSuccessMsg.textContent =
+      `${dateLabel} at ${formatTime(h, m)} — I'll send a confirmation to ${email}.`;
+
+    showStep('bw-step-success');
+  });
+
+  // ── Reset ────────────────────────────────────────────────────────────────
+  elReset.addEventListener('click', () => {
+    selectedDate = null;
+    selectedSlot = null;
+    elForm.reset();
+    elFormError.setAttribute('hidden', '');
+    viewYear  = TODAY.getFullYear();
+    viewMonth = TODAY.getMonth();
+    renderCalendar();
+    showStep('bw-step-cal');
+  });
+
+  // ── Init ─────────────────────────────────────────────────────────────────
+  renderCalendar();
+})();
+</script>
