@@ -5,12 +5,17 @@ import Sidebar from '../components/Sidebar.astro';
 export interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   title = 'Valstrid — Web & Brand Design',
   description = 'Web and brand design for startups, B2B, and investment firms. Clean, conversion-focused digital experiences.',
+  ogImage = '/og-image.png',
 } = Astro.props;
+
+const siteUrl = 'https://valstrid.github.io';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 ---
 
 <!DOCTYPE html>
@@ -20,7 +25,32 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#080808" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).toString()} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Valstrid" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, siteUrl).toString()} />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap.xml" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -42,7 +72,7 @@ const {
     <!-- Mobile header -->
     <header class="mobile-header" aria-label="Mobile navigation">
       <a href="/" class="mobile-logo">Valstrid</a>
-      <button class="mobile-hamburger" id="mobile-hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <button class="mobile-hamburger" id="mobile-hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="sidebar">
         <span></span>
         <span></span>
         <span></span>
@@ -112,6 +142,14 @@ const {
       });
 
       overlay?.addEventListener('click', closeMenu);
+
+      // Close on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && sidebar?.classList.contains('mobile-open')) {
+          closeMenu();
+          hamburger?.focus();
+        }
+      });
 
       // Close on link click (mobile)
       sidebar?.querySelectorAll('a[href^="#"]').forEach((link) => {

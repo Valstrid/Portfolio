@@ -214,11 +214,14 @@ const services = [
   }
 
   @media (max-width: 960px) {
-    .svc-grid { grid-template-columns: 1fr; }
+    .svc-grid { grid-template-columns: repeat(2, 1fr); }
+    .svc-card:last-child { grid-column: 1 / -1; }
     .svc-br { display: inline; }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 560px) {
+    .svc-grid { grid-template-columns: 1fr; }
+    .svc-card:last-child { grid-column: auto; }
     .svc-visual { height: 110px; }
   }
 </style>

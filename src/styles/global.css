@@ -35,9 +35,10 @@
   --shadow-md:  0 8px 32px rgba(0,0,0,0.5);
   --shadow-lg:  0 24px 64px rgba(0,0,0,0.6);
 
-  --sidebar-w:  288px;
-  --section-py: clamp(64px, 8vw, 112px);
-  --section-px: clamp(28px, 4vw, 64px);
+  --sidebar-w:   288px;
+  --content-max: 1280px;
+  --section-py:  clamp(64px, 8vw, 112px);
+  --section-px:  clamp(28px, 4vw, 64px);
 }
 
 /* ---- Reset ---- */
@@ -142,6 +143,12 @@ body::before {
   min-height: 100vh;
   position: relative;
   z-index: 1;
+}
+
+/* Cap content width so it doesn't stretch across ultra-wide monitors */
+.site-main {
+  width: 100%;
+  max-width: var(--content-max);
 }
 
 /* ---- Mobile header ---- */
@@ -396,5 +403,29 @@ body::before {
     padding-top: 56px; /* offset for fixed mobile header */
   }
 
+  /* On mobile, allow full viewport width */
+  .site-main {
+    max-width: 100%;
+  }
+
   .mobile-header { display: flex; }
+}
+
+/* Reduced motion: disable all animations for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  #page-loader {
+    display: none;
+  }
 }

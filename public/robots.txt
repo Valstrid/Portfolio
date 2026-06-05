@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://valstrid.github.io/sitemap.xml

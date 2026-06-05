@@ -2,36 +2,44 @@
 const projects = [
   {
     title: 'Arconic Capital',
+    role: 'Brand & Web Design',
+    year: '2024',
     description: 'Full brand identity and investor portal for a London-based growth equity firm. Positioned them as the go-to fund for Series B tech companies.',
     tags: ['Brand Identity', 'Web Design', 'Framer'],
-    year: '2024',
+    result: 'LP engagement up 40% post-launch',
     thumb1: '#0d1628',
     thumb2: '#1a2f50',
     href: '#',
   },
   {
     title: 'Build Club',
+    role: 'Web Design & Build',
+    year: '2024',
     description: 'End-to-end web design and Framer build for Sydney\'s leading AI builder community. Launched in 4 weeks — 3× member signups in the first month.',
     tags: ['Web Design', 'Framer', 'Brand'],
-    year: '2024',
+    result: '3× member signups in 30 days',
     thumb1: '#14082a',
     thumb2: '#281060',
     href: '#',
   },
   {
     title: 'Preve Health',
+    role: 'Brand & Product Design',
+    year: '2024',
     description: 'Brand and digital product design for a preventative health SaaS. Clean, clinical, and conversion-optimised across desktop and mobile.',
     tags: ['Brand Identity', 'Product Design', 'Web'],
-    year: '2024',
+    result: 'Closed Series A within 6 months',
     thumb1: '#041812',
     thumb2: '#0c3024',
     href: '#',
   },
   {
     title: 'Vale',
+    role: 'Brand & Pitch Deck',
+    year: '2023',
     description: 'Pitch deck and brand identity for a pre-seed fintech startup. Visual-first narrative helped Vale close their seed round ahead of schedule.',
     tags: ['Brand Identity', 'Pitch Deck'],
-    year: '2023',
+    result: 'Seed round closed ahead of schedule',
     thumb1: '#1a0f02',
     thumb2: '#3d2408',
     href: '#',
@@ -80,13 +88,20 @@ const projects = [
         <!-- Content -->
         <div class="cs-content">
           <div class="cs-meta">
-            <div class="cs-tags">
-              {project.tags.map(tag => <span class="tag">{tag}</span>)}
-            </div>
+            <span class="cs-role">{project.role}</span>
             <span class="cs-year">{project.year}</span>
           </div>
           <h3 class="cs-title">{project.title}</h3>
           <p class="cs-desc">{project.description}</p>
+          <div class="cs-tags">
+            {project.tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
+          <div class="cs-result">
+            <svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+              <path d="M1.5 5.5l2.8 2.8 5.2-5.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {project.result}
+          </div>
           <div class="cs-link">
             View case study
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
@@ -242,10 +257,11 @@ const projects = [
     gap: 8px;
   }
 
-  .cs-tags {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
+  .cs-role {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-3);
+    letter-spacing: 0.03em;
   }
 
   .cs-year {
@@ -270,6 +286,27 @@ const projects = [
     flex: 1;
   }
 
+  .cs-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  .cs-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    opacity: 0.75;
+    padding-top: 6px;
+    border-top: 1px solid var(--border);
+    transition: opacity 0.2s;
+  }
+
+  .cs-card:hover .cs-result { opacity: 1; }
+
   .cs-link {
     display: inline-flex;
     align-items: center;
@@ -277,7 +314,7 @@ const projects = [
     font-size: 12px;
     font-weight: 500;
     color: var(--text-3);
-    margin-top: 4px;
+    margin-top: 2px;
     transition: color 0.2s;
   }
 
